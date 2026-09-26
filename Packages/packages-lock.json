@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "b11d62b28c5fcbe242988f9f8d451deb925cf23b"
     },
+    "com.shniqq.fast-noise-lite": {
+      "version": "https://github.com/shniqq/FastNoiseLite-Unity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a1f82300d8bd8454f77950c2e1fa865be7f1fa44"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.14",
       "depth": 0,
