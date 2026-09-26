@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74e3b861e3de1d408b3bb4cfb44b52f, type: 3}
+  m_Name: DefaultTerrainDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
+  <Size>k__BackingField: {x: 256, y: 256}
+  <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: a5bc2f464c053474c91b432c2fb6e3ae, type: 2}
+  <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 546b42240d971e44ebae7e9cd9877fd2, type: 2}
+  <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: cb118b1343e2fa6489285f50d17ab776, type: 2}
