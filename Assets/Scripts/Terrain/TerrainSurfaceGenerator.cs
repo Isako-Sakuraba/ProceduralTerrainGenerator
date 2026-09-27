@@ -41,7 +41,7 @@ namespace TerrainGeneration
                     continue;
                 }
 
-                ElevationType elevation = GetElevationType(point.Elevation);
+                ElevationType elevation = _definition.GetElevationType(point.Elevation);
                 Texture2D texture = biome.TextureDefinition.GetTexture(elevation);
 
                 _surfaceIds[i] = GetTextureId(texture);
@@ -159,24 +159,5 @@ namespace TerrainGeneration
             return 0;
         }
 
-        private static ElevationType GetElevationType(float elevation)
-        {
-            if (elevation < 0.2f)
-                return ElevationType.DeepOcean;
-            if (elevation < 0.32f)
-                return ElevationType.ShallowWater;
-            if (elevation < 0.38f)
-                return ElevationType.Shore;
-            if (elevation < 0.58f)
-                return ElevationType.Lowland;
-            if (elevation < 0.72f)
-                return ElevationType.Highland;
-            if (elevation < 0.82f)
-                return ElevationType.MountainBase;
-            if (elevation < 0.93f)
-                return ElevationType.Mountain;
-
-            return ElevationType.MountainPeak;
-        }
     }
 }

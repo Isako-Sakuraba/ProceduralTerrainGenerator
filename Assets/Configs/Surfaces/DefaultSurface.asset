@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cb17427360139498a819fe8d454114, type: 3}
   m_Name: DefaultSurface
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SurfaceDefinition
-  <Biomes>k__BackingField: []
+  <Biomes>k__BackingField:
+  - {fileID: 11400000, guid: ea5982c01a7f1624b8b9731a71b431c5, type: 2}
+  - {fileID: 11400000, guid: 5f118e485625d9e40b271e623e426f4a, type: 2}
+  - {fileID: 11400000, guid: 7cd0623dfd40e6544820db988a98ea1e, type: 2}
+  - {fileID: 11400000, guid: 19da46b3ddcf60048a8f4e999d3df512, type: 2}
+  - {fileID: 11400000, guid: d405ece394e05454d9cff4777a596a16, type: 2}
+  - {fileID: 11400000, guid: 357598250c9d244489f9e145daee553f, type: 2}

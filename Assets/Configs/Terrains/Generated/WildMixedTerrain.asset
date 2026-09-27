@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74e3b861e3de1d408b3bb4cfb44b52f, type: 3}
+  m_Name: WildMixedTerrain
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
+  <Size>k__BackingField: {x: 512, y: 512}
+  <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: fa4457de7188dc84f82dd401c69edda5, type: 2}
+  <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 36e1b5119deefa2429bb26ed6cdb637e, type: 2}
+  <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 0fabbdfe1ea885b42b0ecccc5d9528ef, type: 2}

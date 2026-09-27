@@ -80,7 +80,8 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
             half4 Frag(Varyings input) : SV_Target
             {
                 float textureId = round(input.textureId);
-                half4 albedo = SAMPLE_TEXTURE2D_ARRAY(_TerrainTextures, sampler_TerrainTextures, input.uv, textureId) * _BaseColor;
+                float2 uv = frac(input.uv);
+                half4 albedo = SAMPLE_TEXTURE2D_ARRAY(_TerrainTextures, sampler_TerrainTextures, uv, textureId) * _BaseColor;
 
                 InputData lightingInput = (InputData)0;
                 lightingInput.positionWS = input.positionWS;

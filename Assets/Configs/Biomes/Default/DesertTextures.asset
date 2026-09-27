@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd831eeff4f9240bdc1fd18f032392, type: 3}
+  m_Name: DesertTextures
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
+  <DeepOcean>k__BackingField: {fileID: 2800000, guid: 4ff89a5773fa309468c614bb9b8846ae, type: 3}
+  <ShallowWater>k__BackingField: {fileID: 2800000, guid: 495da83e4fad03a41a4d55b7ab5cb2f3, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: 495da83e4fad03a41a4d55b7ab5cb2f3, type: 3}
+  <Lowland>k__BackingField: {fileID: 2800000, guid: 495da83e4fad03a41a4d55b7ab5cb2f3, type: 3}
+  <Highland>k__BackingField: {fileID: 2800000, guid: 4ff89a5773fa309468c614bb9b8846ae, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: 4ff89a5773fa309468c614bb9b8846ae, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: 3eea1d4f966a0df42bcde5bfedb9f805, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: 3eea1d4f966a0df42bcde5bfedb9f805, type: 3}

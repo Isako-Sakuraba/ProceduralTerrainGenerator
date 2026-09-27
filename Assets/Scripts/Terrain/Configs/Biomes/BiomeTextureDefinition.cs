@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,18 +9,18 @@ namespace TerrainGeneration
     public class BiomeTextureDefinition : ScriptableObject, IEnumerable<Texture2D>
     {
         [field: Header("Underwater")]
-        [field: SerializeField] public Texture2D DeepOcean { get; private set; }
-        [field: SerializeField] public Texture2D ShallowWater { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D DeepOcean { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D ShallowWater { get; private set; }
 
         [field: Header("Land")]
-        [field: SerializeField] public Texture2D Shore { get; private set; }
-        [field: SerializeField] public Texture2D Lowland { get; private set; }
-        [field: SerializeField] public Texture2D Highland { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D Shore { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D Lowland { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D Highland { get; private set; }
 
         [field: Header("Mountains")]
-        [field: SerializeField] public Texture2D MountainBase { get; private set; }
-        [field: SerializeField] public Texture2D Mountain { get; private set; }
-        [field: SerializeField] public Texture2D MountainPeak { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D MountainBase { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D Mountain { get; private set; }
+        [field: SerializeField, ShowAssetPreview] public Texture2D MountainPeak { get; private set; }
 
         public Texture2D GetTexture(ElevationType elevation)
         {

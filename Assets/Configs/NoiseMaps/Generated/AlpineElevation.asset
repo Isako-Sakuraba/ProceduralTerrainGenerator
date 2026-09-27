@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029c3f4a726043c46ab8299ea8ed244b, type: 3}
+  m_Name: AlpineElevation
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.LayeredNoiseMap
+  <Frequency>k__BackingField: 0.0065
+  <Scale>k__BackingField: {x: 1, y: 1}
+  <Offset>k__BackingField: {x: 20500, y: 3100}
+  <Layers>k__BackingField:
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 1
+    <Scale>k__BackingField: {x: 1, y: 1}
+    <Offset>k__BackingField: {x: 0, y: 0}
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 0
+    <Scale>k__BackingField: {x: 1, y: 1}
+    <Offset>k__BackingField: {x: 900, y: 1700}
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 3
+    <Scale>k__BackingField: {x: 1, y: 1}
+    <Offset>k__BackingField: {x: 4400, y: 2600}
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 2
+    <Scale>k__BackingField: {x: 1, y: 1}
+    <Offset>k__BackingField: {x: 2300, y: 7300}
+  <Lacunarity>k__BackingField: 2.35
+  <AmplitudeMultiplier>k__BackingField: 0.56

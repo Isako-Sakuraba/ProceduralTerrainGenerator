@@ -8,6 +8,7 @@ namespace TerrainGeneration
     {
         [Header("Settings")]
         [SerializeField] private float _cellScale = 1f;
+        [SerializeField] private float _textureScale = 1f;
         [SerializeField] private float _bottomHeight;
         [SerializeField] private float _topHeight = 16f;
 
@@ -51,6 +52,7 @@ namespace TerrainGeneration
         private void OnValidate()
         {
             _cellScale = Mathf.Max(0.01f, _cellScale);
+            _textureScale = Mathf.Max(0.01f, _textureScale);
 
             if (_topHeight < _bottomHeight)
                 _topHeight = _bottomHeight;
@@ -131,6 +133,10 @@ namespace TerrainGeneration
             float x1 = (x + 1) * _cellScale;
             float z0 = y * _cellScale;
             float z1 = (y + 1) * _cellScale;
+            float u0 = x0 / _textureScale;
+            float u1 = x1 / _textureScale;
+            float v0 = z0 / _textureScale;
+            float v1 = z1 / _textureScale;
 
             _vertices.Add(new Vector3(x0, height, z0));
             _vertices.Add(new Vector3(x0, height, z1));
@@ -139,10 +145,10 @@ namespace TerrainGeneration
 
             AddNormals(Vector3.up);
 
-            _uvs.Add(new Vector2(x, y));
-            _uvs.Add(new Vector2(x, y + 1));
-            _uvs.Add(new Vector2(x + 1, y + 1));
-            _uvs.Add(new Vector2(x + 1, y));
+            _uvs.Add(new Vector2(u0, v0));
+            _uvs.Add(new Vector2(u0, v1));
+            _uvs.Add(new Vector2(u1, v1));
+            _uvs.Add(new Vector2(u1, v0));
 
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.Top));
@@ -230,10 +236,14 @@ namespace TerrainGeneration
 
         private void AddSideUvs(float bottom, float top)
         {
-            _uvs.Add(new Vector2(0f, bottom));
-            _uvs.Add(new Vector2(0f, top));
-            _uvs.Add(new Vector2(1f, top));
-            _uvs.Add(new Vector2(1f, bottom));
+            float width = _cellScale / _textureScale;
+            float bottomUv = (bottom - _bottomHeight) / _textureScale;
+            float topUv = (top - _bottomHeight) / _textureScale;
+
+            _uvs.Add(new Vector2(0f, bottomUv));
+            _uvs.Add(new Vector2(0f, topUv));
+            _uvs.Add(new Vector2(width, topUv));
+            _uvs.Add(new Vector2(width, bottomUv));
         }
 
         private void AddTriangles(int start)
