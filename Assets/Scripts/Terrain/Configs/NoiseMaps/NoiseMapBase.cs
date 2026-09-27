@@ -21,6 +21,15 @@ namespace TerrainGeneration
             Vector2 terrainScale,
             Vector2 terrainOffset);
 
+        public abstract void GetNoiseRegion(
+            FastNoiseLite noise,
+            float[] values,
+            Vector2Int size,
+            Vector2 worldOrigin,
+            Vector2 sampleSpacing,
+            Vector2 terrainScale,
+            Vector2 terrainOffset);
+
         public virtual void Initialize(FastNoiseLite noise)
         {
             noise.SetFrequency(Frequency);

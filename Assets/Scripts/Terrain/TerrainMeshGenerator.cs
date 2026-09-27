@@ -45,10 +45,17 @@ namespace TerrainGeneration
         private Mesh _mesh;
         private TerrainFace[] _faceMetadata = new TerrainFace[0];
         private int _settingsVersion;
+        private float _chunkUvCellScale = -1f;
+        private float _chunkTextureSizeMultiplier = 1f;
 
         public Mesh Mesh => _mesh;
         public TerrainFace[] FaceMetadata => _faceMetadata;
         public int SettingsVersion => _settingsVersion;
+
+        public float EvaluateHeight(float elevation)
+        {
+            return Mathf.Lerp(_bottomHeight, _topHeight, Mathf.Clamp01(elevation));
+        }
 
         private void OnValidate()
         {
@@ -95,6 +102,131 @@ namespace TerrainGeneration
             return _mesh;
         }
 
+        public void Generate(TerrainChunkData data, Mesh target, List<TerrainFace> faceMetadata)
+        {
+            if (data == null || target == null || faceMetadata == null)
+                throw new System.ArgumentNullException("Chunk data, target mesh and metadata are required.");
+
+            ClearBuffers();
+            int cells = data.CellsPerEdge;
+            int samples = data.SampleResolution;
+            float spacing = data.SampleSpacing;
+            _chunkUvCellScale = _cellScale;
+            _chunkTextureSizeMultiplier = Mathf.Max(0.01f, data.CellTextureSizeMultiplier);
+
+            try
+            {
+                for (int y = 0; y < cells; y++)
+                {
+                    for (int x = 0; x < cells; x++)
+                    {
+                        int sampleIndex = GetIndex(x + 1, y + 1, samples);
+                        float height = GetHeight(data.Points[sampleIndex]);
+                        if (height <= _bottomHeight)
+                            continue;
+
+                        AddTopFace(sampleIndex, x, y, height, spacing);
+                        AddPaddedSideFaces(data.Points, samples, cells, data.SkirtEdges,
+                            sampleIndex, x, y, height, spacing);
+                    }
+                }
+            }
+            finally
+            {
+                _chunkUvCellScale = -1f;
+                _chunkTextureSizeMultiplier = 1f;
+            }
+
+            target.Clear();
+            target.indexFormat = _vertices.Count > 65535 ? IndexFormat.UInt32 : IndexFormat.UInt16;
+            target.SetVertices(_vertices);
+            target.SetNormals(_normals);
+            target.SetUVs(0, _uvs);
+            target.SetTriangles(_triangles, 0);
+            target.RecalculateBounds();
+            faceMetadata.Clear();
+            faceMetadata.AddRange(_faces);
+        }
+
+        private void AddPaddedSideFaces(System.ReadOnlySpan<TerrainPoint> points, int width,
+            int cells, TerrainChunkEdges skirtEdges, int index, int x, int y,
+            float height, float spacing)
+        {
+            int sx = x + 1;
+            int sy = y + 1;
+            float north = GetHeight(points[GetIndex(sx, sy + 1, width)]);
+            float south = GetHeight(points[GetIndex(sx, sy - 1, width)]);
+            float east = GetHeight(points[GetIndex(sx + 1, sy, width)]);
+            float west = GetHeight(points[GetIndex(sx - 1, sy, width)]);
+            if (y == cells - 1)
+            {
+                if ((skirtEdges & TerrainChunkEdges.North) != 0)
+                    AddNorthFace(index, x, y, _bottomHeight, height, spacing);
+                else if (north < height)
+                    AddNorthFace(index, x, y, north, height, spacing);
+            }
+            else if (north < height) AddNorthFace(index, x, y, north, height, spacing);
+
+            if (y == 0)
+            {
+                if ((skirtEdges & TerrainChunkEdges.South) != 0)
+                    AddSouthFace(index, x, y, _bottomHeight, height, spacing);
+                else if (south < height)
+                    AddSouthFace(index, x, y, south, height, spacing);
+            }
+            else if (south < height) AddSouthFace(index, x, y, south, height, spacing);
+
+            if (x == cells - 1)
+            {
+                if ((skirtEdges & TerrainChunkEdges.East) != 0)
+                    AddEastFace(index, x, y, _bottomHeight, height, spacing);
+                else if (east < height)
+                    AddEastFace(index, x, y, east, height, spacing);
+            }
+            else if (east < height) AddEastFace(index, x, y, east, height, spacing);
+
+            if (x == 0)
+            {
+                if ((skirtEdges & TerrainChunkEdges.West) != 0)
+                    AddWestFace(index, x, y, _bottomHeight, height, spacing);
+                else if (west < height)
+                    AddWestFace(index, x, y, west, height, spacing);
+            }
+            else if (west < height) AddWestFace(index, x, y, west, height, spacing);
+        }
+
+        private void AddTopFace(int index, int x, int y, float height, float scale)
+        {
+            float previous = _cellScale;
+            _cellScale = scale;
+            AddTopFace(index, x, y, height);
+            _cellScale = previous;
+        }
+
+        private void AddNorthFace(int index, int x, int y, float bottom, float top, float scale)
+        {
+            float previous = _cellScale; _cellScale = scale;
+            AddNorthFace(index, x, y, bottom, top); _cellScale = previous;
+        }
+
+        private void AddSouthFace(int index, int x, int y, float bottom, float top, float scale)
+        {
+            float previous = _cellScale; _cellScale = scale;
+            AddSouthFace(index, x, y, bottom, top); _cellScale = previous;
+        }
+
+        private void AddEastFace(int index, int x, int y, float bottom, float top, float scale)
+        {
+            float previous = _cellScale; _cellScale = scale;
+            AddEastFace(index, x, y, bottom, top); _cellScale = previous;
+        }
+
+        private void AddWestFace(int index, int x, int y, float bottom, float top, float scale)
+        {
+            float previous = _cellScale; _cellScale = scale;
+            AddWestFace(index, x, y, bottom, top); _cellScale = previous;
+        }
+
         public void Release()
         {
             if (_mesh != null)
@@ -134,10 +266,12 @@ namespace TerrainGeneration
             float x1 = (x + 1) * _cellScale;
             float z0 = y * _cellScale;
             float z1 = (y + 1) * _cellScale;
-            float u0 = x0 / _textureScale;
-            float u1 = x1 / _textureScale;
-            float v0 = z0 / _textureScale;
-            float v1 = z1 / _textureScale;
+            float uvCellScale = (_chunkUvCellScale > 0f ? _chunkUvCellScale : _cellScale) /
+                _chunkTextureSizeMultiplier;
+            float u0 = x * uvCellScale / _textureScale;
+            float u1 = (x + 1) * uvCellScale / _textureScale;
+            float v0 = y * uvCellScale / _textureScale;
+            float v1 = (y + 1) * uvCellScale / _textureScale;
 
             _vertices.Add(new Vector3(x0, height, z0));
             _vertices.Add(new Vector3(x0, height, z1));
@@ -237,9 +371,12 @@ namespace TerrainGeneration
 
         private void AddSideUvs(float bottom, float top)
         {
-            float width = _cellScale / _textureScale;
-            float bottomUv = (bottom - _bottomHeight) / _textureScale;
-            float topUv = (top - _bottomHeight) / _textureScale;
+            float uvCellScale = (_chunkUvCellScale > 0f ? _chunkUvCellScale : _cellScale) /
+                _chunkTextureSizeMultiplier;
+            float width = uvCellScale / _textureScale;
+            float lodUvScale = uvCellScale / _cellScale;
+            float bottomUv = (bottom - _bottomHeight) * lodUvScale / _textureScale;
+            float topUv = (top - _bottomHeight) * lodUvScale / _textureScale;
 
             _uvs.Add(new Vector2(0f, bottomUv));
             _uvs.Add(new Vector2(0f, topUv));
@@ -285,8 +422,7 @@ namespace TerrainGeneration
 
         private float GetHeight(TerrainPoint point)
         {
-            float elevation = Mathf.Clamp01(point.Elevation);
-            return Mathf.Lerp(_bottomHeight, _topHeight, elevation);
+            return EvaluateHeight(point.Elevation);
         }
 
         private static int GetIndex(int x, int y, int width)

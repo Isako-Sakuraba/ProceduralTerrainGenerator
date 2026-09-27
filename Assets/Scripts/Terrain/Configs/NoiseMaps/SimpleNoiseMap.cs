@@ -40,5 +40,27 @@ namespace TerrainGeneration
                 }
             }
         }
+
+        public override void GetNoiseRegion(
+            FastNoiseLite noise,
+            float[] values,
+            Vector2Int size,
+            Vector2 worldOrigin,
+            Vector2 sampleSpacing,
+            Vector2 terrainScale,
+            Vector2 terrainOffset)
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                float worldY = worldOrigin.y + y * sampleSpacing.y;
+                for (int x = 0; x < size.x; x++)
+                {
+                    float worldX = worldOrigin.x + x * sampleSpacing.x;
+                    float sampleX = worldX * terrainScale.x * Scale.x + terrainOffset.x + Offset.x;
+                    float sampleY = worldY * terrainScale.y * Scale.y + terrainOffset.y + Offset.y;
+                    values[y * size.x + x] = Mathf.Clamp01(noise.GetNoise(sampleX, sampleY) * 0.5f + 0.5f);
+                }
+            }
+        }
     }
 }

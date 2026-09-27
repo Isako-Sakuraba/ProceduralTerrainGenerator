@@ -19,6 +19,11 @@ namespace TerrainGeneration
         public int[] SurfaceIds => _surfaceIds;
         public Texture2DArray TextureArray => _textureArray;
 
+        private void OnValidate()
+        {
+            Release();
+        }
+
         public void Generate(System.ReadOnlySpan<TerrainPoint> points)
         {
             if (_definition == null || !_definition.HasBiomes())
@@ -28,8 +33,19 @@ namespace TerrainGeneration
             }
 
             EnsureSurfaceIds(points.Length);
-            CollectTextures();
-            BuildTextureArray();
+            EnsureTextureArray();
+
+            Generate(points, _surfaceIds);
+        }
+
+        public void Generate(System.ReadOnlySpan<TerrainPoint> points, int[] output)
+        {
+            if (_definition == null || !_definition.HasBiomes())
+                throw new System.InvalidOperationException("SurfaceDefinition is missing or empty.");
+            if (output == null || output.Length < points.Length)
+                throw new System.ArgumentException("The surface output buffer is too small.", nameof(output));
+
+            EnsureTextureArray();
 
             for (int i = 0; i < points.Length; i++)
             {
@@ -38,15 +54,24 @@ namespace TerrainGeneration
 
                 if (biome == null || biome.TextureDefinition == null)
                 {
-                    _surfaceIds[i] = 0;
+                    output[i] = 0;
                     continue;
                 }
 
                 ElevationType elevation = _definition.GetElevationType(point.Elevation);
                 Texture2D texture = biome.TextureDefinition.GetTexture(elevation);
 
-                _surfaceIds[i] = GetTextureId(texture);
+                output[i] = GetTextureId(texture);
             }
+        }
+
+        public void EnsureTextureArray()
+        {
+            if (_textureArray != null)
+                return;
+
+            CollectTextures();
+            BuildTextureArray();
         }
 
         public void Release()

@@ -64,5 +64,23 @@ namespace TerrainGeneration
 
             return result;
         }
+
+        public bool TryGetElevation(ElevationType type, out float elevation)
+        {
+            if (_points != null)
+            {
+                for (int i = 0; i < _points.Length; i++)
+                {
+                    if (_points[i].Type != type)
+                        continue;
+
+                    elevation = Mathf.Clamp01(_points[i].Elevation);
+                    return true;
+                }
+            }
+
+            elevation = 0f;
+            return false;
+        }
     }
 }

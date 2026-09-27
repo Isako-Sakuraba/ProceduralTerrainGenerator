@@ -85,5 +85,59 @@ namespace TerrainGeneration
                 values[i] = Mathf.Clamp01(normalized * 0.5f + 0.5f);
             }
         }
+
+        public override void GetNoiseRegion(
+            FastNoiseLite noise,
+            float[] values,
+            Vector2Int size,
+            Vector2 worldOrigin,
+            Vector2 sampleSpacing,
+            Vector2 terrainScale,
+            Vector2 terrainOffset)
+        {
+            int count = size.x * size.y;
+            System.Array.Clear(values, 0, count);
+            float frequency = Frequency;
+            float amplitude = 1f;
+            float amplitudeSum = 0f;
+
+            foreach (NoiseLayer layer in Layers)
+            {
+                if (layer == null || !layer.Active)
+                    continue;
+
+                noise.SetNoiseType(layer.NoiseType);
+                noise.SetFrequency(frequency);
+                float scaleX = terrainScale.x * layer.Scale.x * Scale.x;
+                float scaleY = terrainScale.y * layer.Scale.y * Scale.y;
+                float offsetX = terrainOffset.x + layer.Offset.x + Offset.x;
+                float offsetY = terrainOffset.y + layer.Offset.y + Offset.y;
+
+                for (int y = 0; y < size.y; y++)
+                {
+                    float worldY = worldOrigin.y + y * sampleSpacing.y;
+                    for (int x = 0; x < size.x; x++)
+                    {
+                        float worldX = worldOrigin.x + x * sampleSpacing.x;
+                        float sample = noise.GetNoise(worldX * scaleX + offsetX, worldY * scaleY + offsetY);
+                        values[y * size.x + x] += sample * layer.NoiseMultiplier * amplitude;
+                    }
+                }
+
+                amplitudeSum += amplitude;
+                frequency *= Lacunarity;
+                amplitude *= AmplitudeMultiplier;
+            }
+
+            if (Mathf.Approximately(amplitudeSum, 0f))
+            {
+                for (int i = 0; i < count; i++) values[i] = 0.5f;
+                return;
+            }
+
+            float inverseAmplitude = 1f / amplitudeSum;
+            for (int i = 0; i < count; i++)
+                values[i] = Mathf.Clamp01(values[i] * inverseAmplitude * 0.5f + 0.5f);
+        }
     }
 }

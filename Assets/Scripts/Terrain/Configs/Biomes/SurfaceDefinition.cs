@@ -24,5 +24,15 @@ namespace TerrainGeneration
 
             return ElevationSettings.Evaluate(elevation);
         }
+
+        public bool TryGetWaterElevation(out float elevation)
+        {
+            if (ElevationSettings != null &&
+                ElevationSettings.TryGetElevation(ElevationType.Shore, out elevation))
+                return true;
+
+            elevation = 0f;
+            return false;
+        }
     }
 }
