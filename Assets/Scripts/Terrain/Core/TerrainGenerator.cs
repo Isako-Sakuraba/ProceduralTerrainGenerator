@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    [ExecuteAlways]
     public class TerrainGenerator : MonoBehaviour
     {
         [Header("Settings")]
@@ -15,21 +16,45 @@ namespace TerrainGeneration
         private TerrainPoint[] _points;
 
         public TerrainDefinition Definition => _definition;
+        public Vector2 Scale => _definition != null ? _definition.Scale : Vector2.one;
+        public Vector2 Offset => _definition != null ? _definition.Offset : Vector2.zero;
         public ReadOnlySpan<TerrainPoint> Points => _points;
         public event Action<TerrainGenerator> Generated = delegate { };
 
         private void Awake()
         {
-            if (!_definition.HasNoiseMaps())
-                throw new NullReferenceException("Some NoiseMaps are null! Assign them in the inspector!");
+            Initialize();
+        }
 
-            _noise = new FastNoiseLite(_seed);
-            _points = new TerrainPoint[_definition.Count];
+        private void OnValidate()
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            if (_definition == null || !_definition.HasNoiseMaps())
+                return;
+
+            if (_noise == null)
+                _noise = new FastNoiseLite(_seed);
+
+            if (_points == null || _points.Length != _definition.Count)
+                _points = new TerrainPoint[_definition.Count];
+        }
+
+        private void ValidateDefinition()
+        {
+            if (_definition == null || !_definition.HasNoiseMaps())
+                throw new NullReferenceException("Some NoiseMaps are null! Assign them in the inspector!");
         }
 
         [Button("Generate")]
         public void Generate()
         {
+            ValidateDefinition();
+            Initialize();
+
             _noise.SetSeed(_seed);
 
             int count = _definition.Count;
@@ -66,7 +91,7 @@ namespace TerrainGeneration
         private void GenerateNoise(NoiseMapBase map, float[] values)
         {
             map.Initialize(_noise);
-            map.GetNoise(_noise, values, _definition.Size, Vector2Int.zero);
+            map.GetNoise(_noise, values, _definition.Size, Scale, Offset);
         }
     }
 }

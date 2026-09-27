@@ -20,7 +20,8 @@ namespace TerrainGeneration
             FastNoiseLite noise,
             float[] values,
             Vector2Int size,
-            Vector2Int offset)
+            Vector2 terrainScale,
+            Vector2 terrainOffset)
         {
             int width = size.x;
             int height = size.y;
@@ -40,11 +41,11 @@ namespace TerrainGeneration
                 noise.SetNoiseType(layer.NoiseType);
                 noise.SetFrequency(frequency);
 
-                float scaleX = layer.Scale.x * Scale.x;
-                float scaleY = layer.Scale.y * Scale.y;
+                float scaleX = terrainScale.x * layer.Scale.x * Scale.x;
+                float scaleY = terrainScale.y * layer.Scale.y * Scale.y;
 
-                float offsetX = layer.Offset.x + Offset.x;
-                float offsetY = layer.Offset.y + Offset.y;
+                float offsetX = terrainOffset.x + layer.Offset.x + Offset.x;
+                float offsetY = terrainOffset.y + layer.Offset.y + Offset.y;
 
                 for (int y = 0; y < height; y++)
                 {
@@ -52,10 +53,10 @@ namespace TerrainGeneration
                     {
                         int index = y * width + x;
 
-                        float sampleX = (x + offset.x) * scaleX + offsetX;
-                        float sampleY = (y + offset.y) * scaleY + offsetY;
+                        float sampleX = x * scaleX + offsetX;
+                        float sampleY = y * scaleY + offsetY;
 
-                        float sample = noise.GetNoise(sampleX, sampleY);
+                        float sample = noise.GetNoise(sampleX, sampleY) * layer.NoiseMultiplier;
 
                         values[index] += sample * amplitude;
                     }

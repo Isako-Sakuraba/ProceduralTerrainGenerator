@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: LowlandBasinsTerrain
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
   <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 2, y: 2}
+  <Offset>k__BackingField: {x: 0, y: 0}
   <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: 4e491a0c14747184abc172757b75fec0, type: 2}
   <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 8691039f4da3edb44b06fc8e78e21f1f, type: 2}
   <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: f6a7f25885fb8114b906b0296771ffa1, type: 2}

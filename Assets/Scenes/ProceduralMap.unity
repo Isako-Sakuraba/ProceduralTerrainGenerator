@@ -226,8 +226,8 @@ Transform:
   m_GameObject: {fileID: 273223374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0.65, z: 10}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalPosition: {x: 20, y: 1.75, z: 20}
+  m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.75}
+  m_LocalPosition: {x: 0, y: -12.9, z: -4.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -507,10 +507,9 @@ GameObject:
   - component: {fileID: 825721712}
   - component: {fileID: 825721711}
   - component: {fileID: 825721710}
-  - component: {fileID: 825721709}
   - component: {fileID: 825721708}
-  - component: {fileID: 825721707}
-  - component: {fileID: 825721706}
+  - component: {fileID: 825721714}
+  - component: {fileID: 825721713}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -518,36 +517,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &825721706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825721705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a9095e5eb447d643b9b70deb883ee33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainView
-  _terrain: {fileID: 825721709}
-  _meshGenerator: {fileID: 825721708}
-  _surfaceGenerator: {fileID: 825721707}
-  _material: {fileID: 2100000, guid: cd5bd321eee980244a9de1bcfef3ff1a, type: 2}
-  _generateOnStart: 1
---- !u!114 &825721707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825721705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e3b6f570aaa20549898178620910aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainSurfaceGenerator
-  _definition: {fileID: 11400000, guid: 71403a70d34cf0a4c817b0529bab0781, type: 2}
 --- !u!114 &825721708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,23 +530,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainMeshGenerator
   _cellScale: 0.04
-  _textureScale: 0.04
+  _textureScale: 0.32
   _bottomHeight: 0
-  _topHeight: 2
---- !u!114 &825721709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825721705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf8ae98110e04a4bbf756979bcea73b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
-  _seed: 345
-  _definition: {fileID: 11400000, guid: 690c91d7fa3b801468ae60e180fbab77, type: 2}
+  _topHeight: 4
 --- !u!33 &825721710
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -611,7 +566,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: cd5bd321eee980244a9de1bcfef3ff1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -650,6 +605,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &825721713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825721705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9095e5eb447d643b9b70deb883ee33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainView
+  _terrain: {fileID: 1308468315}
+  _meshGenerator: {fileID: 825721708}
+  _surfaceGenerator: {fileID: 825721714}
+  _material: {fileID: 2100000, guid: cd5bd321eee980244a9de1bcfef3ff1a, type: 2}
+  _generateOnStart: 1
+--- !u!114 &825721714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825721705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3b6f570aaa20549898178620910aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainSurfaceGenerator
+  _definition: {fileID: 11400000, guid: 71403a70d34cf0a4c817b0529bab0781, type: 2}
 --- !u!1 &870239540
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,15 +646,14 @@ GameObject:
   - component: {fileID: 870239545}
   - component: {fileID: 870239544}
   - component: {fileID: 870239543}
-  - component: {fileID: 870239542}
   - component: {fileID: 870239541}
   m_Layer: 0
-  m_Name: Terrain (1)
+  m_Name: SimpleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &870239541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,24 +666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c569b803db6d74fa91a8d0a311d428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SimpleTerrainView
-  _terrain: {fileID: 870239542}
-  _viewMode: 0
-  _colorScheme: 1
+  _terrain: {fileID: 1308468315}
+  _viewMode: 3
+  _colorScheme: 0
   _remapNoiseFromSignedRange: 0
---- !u!114 &870239542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870239540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf8ae98110e04a4bbf756979bcea73b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
-  _seed: 375
-  _definition: {fileID: 11400000, guid: d6da60400ddf49b41b60f02d24049f8f, type: 2}
 --- !u!33 &870239543
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -765,19 +735,188 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870239540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.50935, y: 0, z: -2.33654}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.74065, y: -12.9, z: -2.33654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1308468307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308468308}
+  - component: {fileID: 1308468315}
+  m_Layer: 0
+  m_Name: TerrainGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1308468308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308468307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.73132, y: 1.26, z: -5.15006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308468315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308468307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf8ae98110e04a4bbf756979bcea73b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
+  _seed: 395
+  _definition: {fileID: 11400000, guid: 20dffc97aadd3364ab757b5bc0a98047, type: 2}
+--- !u!1 &1440220462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1440220463}
+  - component: {fileID: 1440220466}
+  - component: {fileID: 1440220465}
+  - component: {fileID: 1440220464}
+  m_Layer: 0
+  m_Name: BiomeView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1440220463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440220462}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.50935, y: -12.9, z: -2.33654}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1440220464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440220462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d69e622559463a4fae907199fb36daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTerrainView
+  _terrain: {fileID: 1308468315}
+  _surfaceGenerator: {fileID: 825721714}
+  _biomeColors:
+  - Biome: {fileID: 11400000, guid: 7cd0623dfd40e6544820db988a98ea1e, type: 2}
+    Color: {r: 0.8415094, g: 0.82426465, b: 0.22069769, a: 1}
+  - Biome: {fileID: 11400000, guid: 357598250c9d244489f9e145daee553f, type: 2}
+    Color: {r: 0.335849, g: 0.335849, b: 0.335849, a: 1}
+  - Biome: {fileID: 11400000, guid: 5f118e485625d9e40b271e623e426f4a, type: 2}
+    Color: {r: 0.23996527, g: 0.79622644, b: 0.172766, a: 1}
+  - Biome: {fileID: 11400000, guid: ea5982c01a7f1624b8b9731a71b431c5, type: 2}
+    Color: {r: 0.24206088, g: 0.21538617, b: 0.6377357, a: 1}
+  - Biome: {fileID: 11400000, guid: 19da46b3ddcf60048a8f4e999d3df512, type: 2}
+    Color: {r: 0.4959131, g: 0.73217803, b: 0.8037735, a: 1}
+  - Biome: {fileID: 11400000, guid: d405ece394e05454d9cff4777a596a16, type: 2}
+    Color: {r: 0.5169811, g: 0.30324274, b: 0.18240654, a: 1}
+  - Biome: {fileID: 11400000, guid: a520d092933636341ac6ca7f652ccd17, type: 2}
+    Color: {r: 1, g: 0.35294116, b: 0, a: 1}
+  _fallbackColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!33 &1440220465
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440220462}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1440220466
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440220462}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
   - {fileID: 410087041}
+  - {fileID: 870239545}
+  - {fileID: 1440220463}
   - {fileID: 825721712}
   - {fileID: 273223378}
-  - {fileID: 870239545}
+  - {fileID: 1308468308}

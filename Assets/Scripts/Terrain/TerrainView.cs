@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    [ExecuteAlways]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(TerrainMeshGenerator))]
@@ -31,9 +32,24 @@ namespace TerrainGeneration
 
         private void Awake()
         {
+            EnsureReferences();
+        }
+
+        private void OnValidate()
+        {
+            EnsureReferences();
+
+            if (isActiveAndEnabled)
+                Refresh();
+        }
+
+        private void EnsureReferences()
+        {
             _meshFilter = GetComponent<MeshFilter>();
             _meshRenderer = GetComponent<MeshRenderer>();
-            _propertyBlock = new MaterialPropertyBlock();
+
+            if (_propertyBlock == null)
+                _propertyBlock = new MaterialPropertyBlock();
 
             if (_meshGenerator == null)
                 _meshGenerator = GetComponent<TerrainMeshGenerator>();
@@ -50,14 +66,19 @@ namespace TerrainGeneration
 
         private void Start()
         {
-            if (_generateOnStart && _terrain != null)
+            if (Application.isPlaying && _generateOnStart && _terrain != null)
                 _terrain.Generate();
         }
 
         private void OnEnable()
         {
+            EnsureReferences();
+
             if (_terrain != null)
                 _terrain.Generated += OnTerrainGenerated;
+
+            if (!Application.isPlaying && _generateOnStart && _terrain != null)
+                _terrain.Generate();
         }
 
         private void OnDisable()
@@ -77,6 +98,8 @@ namespace TerrainGeneration
 
         public void Refresh()
         {
+            EnsureReferences();
+
             if (_terrain == null || _terrain.Definition == null)
                 return;
 

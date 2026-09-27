@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    [ExecuteAlways]
     public sealed class TerrainSurfaceGenerator : MonoBehaviour
     {
         [Header("Settings")]
@@ -52,7 +53,7 @@ namespace TerrainGeneration
         {
             if (_textureArray != null)
             {
-                Destroy(_textureArray);
+                DestroyGeneratedObject(_textureArray);
                 _textureArray = null;
             }
         }
@@ -90,7 +91,7 @@ namespace TerrainGeneration
             {
                 if (_textureArray != null)
                 {
-                    Destroy(_textureArray);
+                    DestroyGeneratedObject(_textureArray);
                     _textureArray = null;
                 }
 
@@ -100,7 +101,7 @@ namespace TerrainGeneration
             Texture2D first = _textures[0];
 
             if (_textureArray != null)
-                Destroy(_textureArray);
+                DestroyGeneratedObject(_textureArray);
 
             _textureArray = new Texture2DArray(first.width, first.height, _textures.Count, first.format, first.mipmapCount > 1, false)
             {
@@ -157,6 +158,14 @@ namespace TerrainGeneration
                 return id;
 
             return 0;
+        }
+
+        private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
+        {
+            if (Application.isPlaying)
+                Destroy(generatedObject);
+            else
+                DestroyImmediate(generatedObject);
         }
 
     }

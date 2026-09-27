@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DesertBadlandsTerrain
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
   <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 2, y: 2}
+  <Offset>k__BackingField: {x: 0, y: 0}
   <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: 2fe6332a0da8e8e4e9e920d55cd9d3ed, type: 2}
   <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: af7f2ac6b5a395d48ad82c4b24cbbd3b, type: 2}
   <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 1a772267120f39b4c8b9a6bf8f39c890, type: 2}
@@ -21,18 +23,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.55
+      value: 1
       inSlope: 0
-      outSlope: 0.59999996
+      outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.45
-      value: 0.82
-      inSlope: 0.59999996
-      outSlope: 0.32727274
+      time: 0.42991942
+      value: 1
+      inSlope: -0
+      outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
@@ -40,7 +42,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.32727274
+      inSlope: -0
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -56,24 +58,24 @@ MonoBehaviour:
       time: 0
       value: 0.02
       inSlope: 0
-      outSlope: 0.2857143
+      outSlope: 0.079570286
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.7
-      value: 0.22
-      inSlope: 0.2857143
-      outSlope: 0.5333333
+      time: 0.7145992
+      value: 0.07686086
+      inSlope: 0.079570286
+      outSlope: 0.8724071
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0.38
-      inSlope: 0.5333333
+      value: 0.32584655
+      inSlope: 0.8724071
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -107,16 +109,16 @@ MonoBehaviour:
       time: 0.55
       value: 0.66
       inSlope: 0.7000001
-      outSlope: 0.55999994
+      outSlope: 2.9111886
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8
-      value: 0.8
-      inSlope: 0.55999994
-      outSlope: 0.7999999
+      time: 0.6667908
+      value: 1
+      inSlope: 2.9111886
+      outSlope: -0.12004476
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
@@ -124,7 +126,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0.96
-      inSlope: 0.7999999
+      inSlope: -0.12004476
       outSlope: 0
       tangentMode: 69
       weightedMode: 0

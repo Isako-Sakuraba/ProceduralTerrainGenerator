@@ -1,8 +1,10 @@
+using NaughtyAttributes;
 using System;
 using UnityEngine;
 
 namespace TerrainGeneration
 {
+    [ExecuteAlways]
     [RequireComponent(typeof(MeshRenderer))]
     public sealed class SimpleTerrainView : MonoBehaviour
     {
@@ -69,12 +71,21 @@ namespace TerrainGeneration
 
         private void Awake()
         {
+            EnsureReferences();
+        }
+
+        private void EnsureReferences()
+        {
             _renderer = GetComponent<MeshRenderer>();
-            _propertyBlock = new MaterialPropertyBlock();
+
+            if (_propertyBlock == null)
+                _propertyBlock = new MaterialPropertyBlock();
         }
 
         private void OnEnable()
         {
+            EnsureReferences();
+
             if (_terrain == null)
                 return;
 
@@ -92,12 +103,14 @@ namespace TerrainGeneration
         private void OnDestroy()
         {
             if (_texture != null)
-                Destroy(_texture);
+                DestroyGeneratedObject(_texture);
         }
 
         private void OnValidate()
         {
-            if (Application.isPlaying && isActiveAndEnabled)
+            EnsureReferences();
+
+            if (isActiveAndEnabled)
                 Refresh();
         }
 
@@ -106,8 +119,11 @@ namespace TerrainGeneration
             Refresh();
         }
 
+        [Button]
         public void Refresh()
         {
+            EnsureReferences();
+
             if (_terrain == null)
                 return;
 
@@ -158,7 +174,7 @@ namespace TerrainGeneration
             }
 
             if (_texture != null)
-                Destroy(_texture);
+                DestroyGeneratedObject(_texture);
 
             _texture = new Texture2D(
                 size.x,
@@ -241,6 +257,14 @@ namespace TerrainGeneration
             _propertyBlock.SetTexture(MainTexId, _texture);
 
             _renderer.SetPropertyBlock(_propertyBlock);
+        }
+
+        private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
+        {
+            if (Application.isPlaying)
+                Destroy(generatedObject);
+            else
+                DestroyImmediate(generatedObject);
         }
     }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SoftClimateBands
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SimpleNoiseMap
   <Frequency>k__BackingField: 0.01
-  <Scale>k__BackingField: {x: 1, y: 1}
+  <Scale>k__BackingField: {x: 0.4, y: 0.4}
   <Offset>k__BackingField: {x: 4200, y: 615}
-  <NoiseType>k__BackingField: 3
+  <NoiseType>k__BackingField: 5

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd831eeff4f9240bdc1fd18f032392, type: 3}
+  m_Name: VolcanicTextures
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
+  <DeepOcean>k__BackingField: {fileID: 2800000, guid: b61b9cc499d8ee745b303b87ad9e665c, type: 3}
+  <ShallowWater>k__BackingField: {fileID: 2800000, guid: cc0bbc4baf0bf7e49b97613e5bb482dc, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: 70c3755f379e6be4c9f1d371973a568c, type: 3}
+  <Lowland>k__BackingField: {fileID: 2800000, guid: 1df0832c41c725a418e7ea2df6103f7f, type: 3}
+  <Highland>k__BackingField: {fileID: 2800000, guid: 595b3ed7b115e57439e3a0bac3025626, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: 595b3ed7b115e57439e3a0bac3025626, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: 595b3ed7b115e57439e3a0bac3025626, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: 44fe3b0f02314d140aaf8f15725e96cf, type: 3}

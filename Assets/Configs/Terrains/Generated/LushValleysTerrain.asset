@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: LushValleysTerrain
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
   <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 2, y: 2}
+  <Offset>k__BackingField: {x: 0, y: 0}
   <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: fa4457de7188dc84f82dd401c69edda5, type: 2}
   <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 0e91fe4a8be971a4e9416d5aa7ce5eb4, type: 2}
   <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: ecd4b6ec72221dc4bb89a0d2260e7ee2, type: 2}

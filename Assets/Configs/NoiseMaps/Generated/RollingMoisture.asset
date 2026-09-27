@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bdb97df8cefc3498f61aea7e728e43, type: 3}
   m_Name: RollingMoisture
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SimpleNoiseMap
-  <Frequency>k__BackingField: 0.014
-  <Scale>k__BackingField: {x: 1, y: 1}
+  <Frequency>k__BackingField: 0.012
+  <Scale>k__BackingField: {x: 0.2, y: 0.2}
   <Offset>k__BackingField: {x: 2350, y: 7650}
   <NoiseType>k__BackingField: 1

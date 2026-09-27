@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e3b861e3de1d408b3bb4cfb44b52f, type: 3}
   m_Name: Sus
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
-  <Size>k__BackingField: {x: 1024, y: 1024}
+  <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 2, y: 2}
+  <Offset>k__BackingField: {x: 0, y: 0}
   <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: e711a764e76b3eb449e442b0e2e81adb, type: 2}
   <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 0e91fe4a8be971a4e9416d5aa7ce5eb4, type: 2}
   <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 6cad0641f23e01a419331ec1b51051ed, type: 2}

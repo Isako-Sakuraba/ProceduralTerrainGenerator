@@ -19,3 +19,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19da46b3ddcf60048a8f4e999d3df512, type: 2}
   - {fileID: 11400000, guid: d405ece394e05454d9cff4777a596a16, type: 2}
   - {fileID: 11400000, guid: 357598250c9d244489f9e145daee553f, type: 2}
+  - {fileID: 11400000, guid: a520d092933636341ac6ca7f652ccd17, type: 2}
+  <ElevationSettings>k__BackingField:
+    _points:
+    - _type: 0
+      _elevation: 0
+    - _type: 1
+      _elevation: 0.079
+    - _type: 2
+      _elevation: 0.3606371
+    - _type: 3
+      _elevation: 0.43572238
+    - _type: 4
+      _elevation: 0.51308304
+    - _type: 5
+      _elevation: 0.58361775
+    - _type: 6
+      _elevation: 0.82
+    - _type: 7
+      _elevation: 0.93

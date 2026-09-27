@@ -29,6 +29,11 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile _ _FORWARD_PLUS
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
             #pragma multi_compile_fog
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -58,6 +63,7 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
                 float2 uv : TEXCOORD2;
                 float textureId : TEXCOORD3;
                 half fogFactor : TEXCOORD4;
+                float4 shadowCoord : TEXCOORD5;
             };
 
             Varyings Vert(Attributes input)
@@ -73,6 +79,7 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
                 output.uv = input.uv;
                 output.textureId = input.textureId.x;
                 output.fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
+                output.shadowCoord = GetShadowCoord(positionInputs);
 
                 return output;
             }
@@ -87,7 +94,7 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
                 lightingInput.positionWS = input.positionWS;
                 lightingInput.normalWS = normalize(input.normalWS);
                 lightingInput.viewDirectionWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
-                lightingInput.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+                lightingInput.shadowCoord = input.shadowCoord;
                 lightingInput.fogCoord = input.fogFactor;
                 lightingInput.bakedGI = SampleSH(lightingInput.normalWS);
                 lightingInput.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
@@ -101,6 +108,8 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
                 surface.smoothness = _Smoothness;
                 surface.occlusion = 1;
                 surface.emission = 0;
+                surface.clearCoatMask = 0;
+                surface.clearCoatSmoothness = 0;
 
                 half4 color = UniversalFragmentPBR(lightingInput, surface);
                 color.rgb = MixFog(color.rgb, input.fogFactor);
@@ -118,9 +127,12 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+
+            float3 _LightDirection;
 
             struct Attributes
             {
@@ -137,7 +149,21 @@ Shader "TerrainGeneration/Terrain Texture Array Lit"
             {
                 Varyings output;
                 VertexPositionInputs positionInputs = GetVertexPositionInputs(input.positionOS.xyz);
-                output.positionCS = TransformWorldToHClip(positionInputs.positionWS);
+                VertexNormalInputs normalInputs = GetVertexNormalInputs(input.normalOS);
+
+                float3 positionWS = ApplyShadowBias(
+                    positionInputs.positionWS,
+                    normalInputs.normalWS,
+                    _LightDirection);
+
+                output.positionCS = TransformWorldToHClip(positionWS);
+
+#if UNITY_REVERSED_Z
+                output.positionCS.z = min(output.positionCS.z, UNITY_NEAR_CLIP_VALUE);
+#else
+                output.positionCS.z = max(output.positionCS.z, UNITY_NEAR_CLIP_VALUE);
+#endif
+
                 return output;
             }
 

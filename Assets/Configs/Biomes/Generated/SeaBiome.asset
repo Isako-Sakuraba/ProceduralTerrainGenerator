@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961ab8d60e537eb44ac82e41e8c8676b, type: 3}
-  m_Name: MountainsBiome
+  m_Name: SeaBiome
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeDefinition
   <Temperature>k__BackingField:
     serializedVersion: 2
@@ -64,27 +64,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.62
-      value: 0
-      inSlope: 0
-      outSlope: 7.692308
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.75
+      time: 0
       value: 1
-      inSlope: 7.692308
+      inSlope: 0
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
+      time: 0.3748944
       value: 1
       inSlope: -0
+      outSlope: -12.232344
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4566449
+      value: 0
+      inSlope: -12.232344
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -93,4 +93,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <TextureDefinition>k__BackingField: {fileID: 11400000, guid: b2d56bea8af63774fada58058e0463c0, type: 2}
+  <TextureDefinition>k__BackingField: {fileID: 11400000, guid: 1e0c2674740b5d44bbbae00c4f07288a, type: 2}

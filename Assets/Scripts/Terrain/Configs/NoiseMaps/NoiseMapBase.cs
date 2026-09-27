@@ -18,7 +18,8 @@ namespace TerrainGeneration
             FastNoiseLite noise,
             float[] values,
             Vector2Int size,
-            Vector2Int offset);
+            Vector2 terrainScale,
+            Vector2 terrainOffset);
 
         public virtual void Initialize(FastNoiseLite noise)
         {

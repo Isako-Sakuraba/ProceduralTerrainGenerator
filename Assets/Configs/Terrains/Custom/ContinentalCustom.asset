@@ -10,41 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a74e3b861e3de1d408b3bb4cfb44b52f, type: 3}
-  m_Name: BrokenIslandTerrain
+  m_Name: ContinentalCustom
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
   <Size>k__BackingField: {x: 512, y: 512}
   <Scale>k__BackingField: {x: 2, y: 2}
   <Offset>k__BackingField: {x: 0, y: 0}
-  <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: cd4575124dd7f674d92e69d927a1f282, type: 2}
-  <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: af7f2ac6b5a395d48ad82c4b24cbbd3b, type: 2}
-  <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 2901383f6133f714889a6b03cbf250e8, type: 2}
+  <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: 4e491a0c14747184abc172757b75fec0, type: 2}
+  <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 36e1b5119deefa2429bb26ed6cdb637e, type: 2}
+  <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 6ec9bc67ae8523d4c9ba8f03a062e510, type: 2}
   <TemperatureShape>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.45
+      value: 0
       inSlope: 0
-      outSlope: 0.46000004
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.68
-      inSlope: 0.46000004
-      outSlope: 0.43999994
-      tangentMode: 69
+      outSlope: 1
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0.9
-      inSlope: 0.43999994
+      value: 1
+      inSlope: 1
       outSlope: 0
-      tangentMode: 69
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -56,28 +47,19 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.08
+      value: 0
       inSlope: 0
-      outSlope: 0.30769232
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.65
-      value: 0.28
-      inSlope: 0.30769232
-      outSlope: 0.39999995
-      tangentMode: 69
+      outSlope: 1
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0.42
-      inSlope: 0.39999995
+      value: 1
+      inSlope: 1
       outSlope: 0
-      tangentMode: 69
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -89,44 +71,53 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.03
+      value: 0
       inSlope: 0
-      outSlope: 0.42
+      outSlope: 0.87697136
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5
-      value: 0.24
-      inSlope: 0.42
-      outSlope: 1.0909089
+      time: 0.21714783
+      value: 0.19043243
+      inSlope: 0.87697136
+      outSlope: 0.73523015
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.72
-      value: 0.48
-      inSlope: 1.0909089
-      outSlope: 1.5
+      time: 0.41608816
+      value: 0.33669937
+      inSlope: 0.73523015
+      outSlope: 0.91053015
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5791748
+      value: 0.48519468
+      inSlope: 0.91053015
+      outSlope: 1.3638973
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.92
-      value: 0.78
-      inSlope: 1.5
-      outSlope: 1.750001
+      time: 0.8207947
+      value: 0.8147394
+      inSlope: 1.3638973
+      outSlope: 1.0337898
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0.92
-      inSlope: 1.750001
+      value: 1
+      inSlope: 1.0337898
       outSlope: 0
       tangentMode: 69
       weightedMode: 0

@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 namespace TerrainGeneration
 {
+    [ExecuteAlways]
     public sealed class TerrainMeshGenerator : MonoBehaviour
     {
         [Header("Settings")]
@@ -98,7 +99,7 @@ namespace TerrainGeneration
         {
             if (_mesh != null)
             {
-                Destroy(_mesh);
+                DestroyGeneratedObject(_mesh);
                 _mesh = null;
             }
 
@@ -291,6 +292,14 @@ namespace TerrainGeneration
         private static int GetIndex(int x, int y, int width)
         {
             return y * width + x;
+        }
+
+        private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
+        {
+            if (Application.isPlaying)
+                Destroy(generatedObject);
+            else
+                DestroyImmediate(generatedObject);
         }
     }
 }

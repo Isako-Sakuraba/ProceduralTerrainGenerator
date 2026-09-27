@@ -10,42 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961ab8d60e537eb44ac82e41e8c8676b, type: 3}
-  m_Name: TaigaBiome
+  m_Name: TundraBiome
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeDefinition
   <Temperature>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.05
-      value: 0
-      inSlope: 0
-      outSlope: 7.692307
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.18
+      time: 0
       value: 1
-      inSlope: 7.692307
+      inSlope: 0
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.42
+      time: 0.22
       value: 1
       inSlope: -0
-      outSlope: -7.692306
+      outSlope: -7.692308
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.55
+      time: 0.35
       value: 0
-      inSlope: -7.692306
+      inSlope: -7.692308
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -58,36 +49,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.28
-      value: 0
-      inSlope: 0
-      outSlope: 5.8823533
-      tangentMode: 69
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.45
+      time: 0
       value: 1
-      inSlope: 5.8823533
+      inSlope: 0
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.85
+      time: 0.55
       value: 1
       inSlope: -0
-      outSlope: -6.666668
+      outSlope: -5.0000005
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
+      time: 0.75
       value: 0
-      inSlope: -6.666668
+      inSlope: -5.0000005
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -100,36 +82,36 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.32
+      time: 0.427666
       value: 0
       inSlope: 0
-      outSlope: 10.000001
+      outSlope: 25.142334
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.42
+      time: 0.46743956
       value: 1
-      inSlope: 10.000001
+      inSlope: 25.142334
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.72
+      time: 0.541167
       value: 1
       inSlope: -0
-      outSlope: -10.000004
+      outSlope: -9.163827
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.82
+      time: 0.65029174
       value: 0
-      inSlope: -10.000004
+      inSlope: -9.163827
       outSlope: 0
       tangentMode: 69
       weightedMode: 0
@@ -138,4 +120,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <TextureDefinition>k__BackingField: {fileID: 11400000, guid: 04108aff605ac3a448074e4e11e3da13, type: 2}
+  <TextureDefinition>k__BackingField: {fileID: 11400000, guid: 2f11f478bb284f0479bade331acde3e6, type: 2}

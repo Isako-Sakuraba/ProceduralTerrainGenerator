@@ -19,7 +19,8 @@ namespace TerrainGeneration
             FastNoiseLite noise,
             float[] values,
             Vector2Int size,
-            Vector2Int offset)
+            Vector2 terrainScale,
+            Vector2 terrainOffset)
         {
             int width = size.x;
             int height = size.y;
@@ -30,8 +31,8 @@ namespace TerrainGeneration
                 {
                     int index = y * width + x;
 
-                    float sampleX = (x + offset.x) * Scale.x + Offset.x;
-                    float sampleY = (y + offset.y) * Scale.y + Offset.y;
+                    float sampleX = x * terrainScale.x * Scale.x + terrainOffset.x + Offset.x;
+                    float sampleY = y * terrainScale.y * Scale.y + terrainOffset.y + Offset.y;
 
                     float sample = noise.GetNoise(sampleX, sampleY);
 

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ArchipelagoTerrain
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
   <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 2, y: 2}
+  <Offset>k__BackingField: {x: 0, y: 0}
   <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: 4e491a0c14747184abc172757b75fec0, type: 2}
   <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 0e91fe4a8be971a4e9416d5aa7ce5eb4, type: 2}
   <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: 6cad0641f23e01a419331ec1b51051ed, type: 2}

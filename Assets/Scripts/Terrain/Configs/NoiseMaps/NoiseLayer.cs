@@ -13,6 +13,9 @@ namespace TerrainGeneration
         public FastNoiseLite.NoiseType NoiseType { get; private set; }
 
         [field: SerializeField]
+        public float NoiseMultiplier { get; private set; } = 1f;
+
+        [field: SerializeField]
         public Vector2 Scale { get; private set; } = Vector2.one;
 
         [field: SerializeField]

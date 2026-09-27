@@ -9,6 +9,12 @@ namespace TerrainGeneration
         [field: SerializeField]
         public Vector2Int Size { get; private set; } = new Vector2Int(256, 256);
 
+        [field: SerializeField]
+        public Vector2 Scale { get; private set; } = Vector2.one;
+
+        [field: SerializeField]
+        public Vector2 Offset { get; private set; } = Vector2.zero;
+
         [field: SerializeField, Required]
         public NoiseMapBase TemperatureNoiseMap { get; private set; }
 
