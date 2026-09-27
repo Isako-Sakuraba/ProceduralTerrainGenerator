@@ -27,11 +27,17 @@ namespace TerrainGeneration
         public int GenerationVersion { get; private set; }
         public TerrainChunkData Data { get; } = new TerrainChunkData();
 
+        /// <summary>
+        /// Prepares the chunk resources when the object wakes up.
+        /// </summary>
         private void Awake()
         {
             EnsureResources();
         }
 
+        /// <summary>
+        /// Assigns this view to a chunk coordinate.
+        /// </summary>
         public int Assign(Vector2Int coordinate, Vector3 localPosition, Material material)
         {
             EnsureResources();
@@ -47,12 +53,18 @@ namespace TerrainGeneration
             return GenerationVersion;
         }
 
+        /// <summary>
+        /// Requests a new detail level and generation version.
+        /// </summary>
         public int RequestLod(int lod)
         {
             Lod = lod;
             return ++GenerationVersion;
         }
 
+        /// <summary>
+        /// Applies generated terrain and water data to this view.
+        /// </summary>
         public void Apply(TerrainMeshGenerator meshGenerator, TerrainSurfaceGenerator surfaceGenerator,
             TerrainChunkRequest request, int version, Material waterMaterial, int waterResolution,
             int maximumWaterResolution, bool rebuildWater)
@@ -72,6 +84,9 @@ namespace TerrainGeneration
                     waterResolution, maximumWaterResolution);
         }
 
+        /// <summary>
+        /// Resets and hides this chunk view.
+        /// </summary>
         public void Deactivate()
         {
             GenerationVersion++;
@@ -80,6 +95,9 @@ namespace TerrainGeneration
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Creates the terrain rendering resources when needed.
+        /// </summary>
         private void EnsureResources()
         {
             if (_meshFilter == null) _meshFilter = GetComponent<MeshFilter>();
@@ -92,6 +110,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Builds and displays water for the chunk when needed.
+        /// </summary>
         private void ApplyWater(TerrainMeshGenerator meshGenerator, SurfaceDefinition surfaceDefinition,
             TerrainChunkRequest request, Material waterMaterial, int waterResolution,
             int maximumWaterResolution)
@@ -121,6 +142,9 @@ namespace TerrainGeneration
             _waterObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Builds a water mesh with matching edge resolution.
+        /// </summary>
         private void BuildWaterMesh(float size, float height, int resolution, int edgeResolution)
         {
             _waterVertices.Clear();
@@ -166,6 +190,9 @@ namespace TerrainGeneration
             StitchWaterEdge(size, height, edgeResolution, resolution, resolution, innerWidth, 3);
         }
 
+        /// <summary>
+        /// Builds a regular grid for the water surface.
+        /// </summary>
         private void BuildRegularWaterGrid(float size, float height, int resolution)
         {
             int width = resolution + 1;
@@ -186,6 +213,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Connects one water edge to the inner grid.
+        /// </summary>
         private void StitchWaterEdge(float size, float height, int edgeResolution,
             int innerResolution, int innerStart, int innerWidth, int side)
         {
@@ -227,11 +257,17 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Gets a vertex index along an inner water edge.
+        /// </summary>
         private static int GetInnerEdgeIndex(int start, int width, int offset, int side)
         {
             return side < 2 ? start + offset : start + offset * width;
         }
 
+        /// <summary>
+        /// Adds a vertex to the water mesh buffers.
+        /// </summary>
         private void AddWaterVertex(Vector3 position)
         {
             _waterVertices.Add(position);
@@ -239,6 +275,9 @@ namespace TerrainGeneration
             _waterUvs.Add(new Vector2(position.x, position.z));
         }
 
+        /// <summary>
+        /// Adds a correctly wound water triangle.
+        /// </summary>
         private void AddWaterTriangle(int a, int b, int c)
         {
             Vector3 cross = Vector3.Cross(_waterVertices[b] - _waterVertices[a],
@@ -256,6 +295,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Checks whether any terrain point lies below the water level.
+        /// </summary>
         private bool ContainsWater(float waterElevation)
         {
             TerrainPoint[] points = Data.Points;
@@ -265,6 +307,9 @@ namespace TerrainGeneration
             return false;
         }
 
+        /// <summary>
+        /// Creates the water rendering resources when needed.
+        /// </summary>
         private void EnsureWaterResources()
         {
             if (_waterObject != null) return;
@@ -278,6 +323,9 @@ namespace TerrainGeneration
             _waterFilter.sharedMesh = _waterMesh;
         }
 
+        /// <summary>
+        /// Destroys meshes owned by this chunk view.
+        /// </summary>
         private void OnDestroy()
         {
             if (Application.isPlaying)

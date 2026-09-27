@@ -30,11 +30,17 @@ namespace TerrainGeneration
         private float[] _heightCache;
         private int _meshSettingsVersion = -1;
 
+        /// <summary>
+        /// Finds the components used by the terrain view.
+        /// </summary>
         private void Awake()
         {
             EnsureReferences();
         }
 
+        /// <summary>
+        /// Refreshes the terrain view after editor changes.
+        /// </summary>
         private void OnValidate()
         {
             EnsureReferences();
@@ -43,6 +49,9 @@ namespace TerrainGeneration
                 Refresh();
         }
 
+        /// <summary>
+        /// Finds any missing component references.
+        /// </summary>
         private void EnsureReferences()
         {
             _meshFilter = GetComponent<MeshFilter>();
@@ -64,12 +73,18 @@ namespace TerrainGeneration
                 _meshRenderer.sharedMaterial = _material;
         }
 
+        /// <summary>
+        /// Generates the terrain at startup when enabled.
+        /// </summary>
         private void Start()
         {
             if (Application.isPlaying && _generateOnStart && _terrain != null)
                 _terrain.Generate();
         }
 
+        /// <summary>
+        /// Starts listening for terrain generation and handles editor generation.
+        /// </summary>
         private void OnEnable()
         {
             EnsureReferences();
@@ -81,12 +96,18 @@ namespace TerrainGeneration
                 _terrain.Generate();
         }
 
+        /// <summary>
+        /// Stops listening for terrain generation.
+        /// </summary>
         private void OnDisable()
         {
             if (_terrain != null)
                 _terrain.Generated -= OnTerrainGenerated;
         }
 
+        /// <summary>
+        /// Releases the generated mesh and surface resources.
+        /// </summary>
         private void OnDestroy()
         {
             if (_meshGenerator != null)
@@ -96,6 +117,9 @@ namespace TerrainGeneration
                 _surfaceGenerator.Release();
         }
 
+        /// <summary>
+        /// Rebuilds the terrain mesh and surface when needed.
+        /// </summary>
         public void Refresh()
         {
             EnsureReferences();
@@ -127,11 +151,17 @@ namespace TerrainGeneration
             ApplyTextureArray();
         }
 
+        /// <summary>
+        /// Refreshes the view when the terrain is generated.
+        /// </summary>
         private void OnTerrainGenerated(TerrainGenerator terrain)
         {
             Refresh();
         }
 
+        /// <summary>
+        /// Checks whether the terrain heights differ from the cached values.
+        /// </summary>
         private bool HaveHeightsChanged(ReadOnlySpan<TerrainPoint> points, int count)
         {
             if (_heightCache == null || _heightCache.Length != count)
@@ -146,6 +176,9 @@ namespace TerrainGeneration
             return false;
         }
 
+        /// <summary>
+        /// Stores the current terrain heights for later comparisons.
+        /// </summary>
         private void CacheHeights(ReadOnlySpan<TerrainPoint> points, int count)
         {
             if (_heightCache == null || _heightCache.Length != count)
@@ -155,6 +188,9 @@ namespace TerrainGeneration
                 _heightCache[i] = points[i].Elevation;
         }
 
+        /// <summary>
+        /// Writes each face's surface ID into the mesh UVs.
+        /// </summary>
         private void ApplySurfaceIds()
         {
             Mesh mesh = _meshGenerator.Mesh;
@@ -184,6 +220,9 @@ namespace TerrainGeneration
             mesh.SetUVs(1, _textureUvs);
         }
 
+        /// <summary>
+        /// Applies the generated terrain textures to the renderer.
+        /// </summary>
         private void ApplyTextureArray()
         {
             if (_meshRenderer == null || _surfaceGenerator.TextureArray == null)

@@ -22,16 +22,25 @@ namespace TerrainGeneration
         public ReadOnlySpan<TerrainPoint> Points => _points;
         public event Action<TerrainGenerator> Generated = delegate { };
 
+        /// <summary>
+        /// Initializes the generator when it wakes up.
+        /// </summary>
         private void Awake()
         {
             Initialize();
         }
 
+        /// <summary>
+        /// Initializes the generator after inspector values change.
+        /// </summary>
         private void OnValidate()
         {
             Initialize();
         }
 
+        /// <summary>
+        /// Prepares the noise generator and point storage.
+        /// </summary>
         private void Initialize()
         {
             if (_definition == null || !_definition.HasNoiseMaps())
@@ -44,12 +53,18 @@ namespace TerrainGeneration
                 _points = new TerrainPoint[_definition.Count];
         }
 
+        /// <summary>
+        /// Checks that the terrain definition can generate noise.
+        /// </summary>
         private void ValidateDefinition()
         {
             if (_definition == null || !_definition.HasNoiseMaps())
                 throw new NullReferenceException("Some NoiseMaps are null! Assign them in the inspector!");
         }
 
+        /// <summary>
+        /// Generates TerrainPoints and stores them.
+        /// </summary>
         [Button("Generate")]
         public void Generate()
         {
@@ -60,10 +75,12 @@ namespace TerrainGeneration
 
             int count = _definition.Count;
 
+            // Get array from the pool.
             float[] temperature = ArrayPool<float>.Shared.Rent(count);
             float[] humidity = ArrayPool<float>.Shared.Rent(count);
             float[] elevation = ArrayPool<float>.Shared.Rent(count);
 
+            // Generate the noise using Noise Maps
             try
             {
                 GenerateNoise(_definition.TemperatureNoiseMap, temperature);
@@ -89,6 +106,12 @@ namespace TerrainGeneration
             Generated.Invoke(this);
         }
 
+        /// <summary>
+        /// Generates TerrainPoints based on request and puts result into the output.
+        /// </summary>
+        /// <param name="request">Request data-class with relevant information.</param>
+        /// <param name="output">Where the generated values will be applied to.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Throws if chunk size or resolution are not positive</exception>
         public void Generate(TerrainChunkRequest request, TerrainChunkData output)
         {
             ValidateDefinition();
@@ -97,13 +120,17 @@ namespace TerrainGeneration
             if (request.CellsPerEdge <= 0 || request.WorldSize <= 0f)
                 throw new ArgumentOutOfRangeException(nameof(request), "Chunk size and resolution must be positive.");
 
+            // Warm up the TerrainChunkData
             output.Prepare(request);
             int resolution = request.SampleResolution;
             int count = resolution * resolution;
+
+            // Prepare the value arrays
             float[] temperature = ArrayPool<float>.Shared.Rent(count);
             float[] humidity = ArrayPool<float>.Shared.Rent(count);
             float[] elevation = ArrayPool<float>.Shared.Rent(count);
 
+            // Generate the values using NoiseMaps
             try
             {
                 _noise.SetSeed(request.Seed);
@@ -131,12 +158,25 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Helper method for applying a NoiseMap to an array with values
+        /// </summary>
+        /// <param name="map">NoiseMap.</param>
+        /// <param name="values">Output array.</param>
         private void GenerateNoise(NoiseMapBase map, float[] values)
         {
             map.Initialize(_noise);
             map.GetNoise(_noise, values, _definition.Size, Scale, Offset);
         }
 
+        /// <summary>
+        /// Advanced helper method for applying a NoiseMap to an array with values, with some extra data.
+        /// </summary>
+        /// <param name="map">NoiseMap.</param>
+        /// <param name="values">Output array.</param>
+        /// <param name="resolution">Region resolution.</param>
+        /// <param name="sampleSpacing">Spacing between points.</param>
+        /// <param name="worldOrigin">World origin position.</param>
         private void GenerateNoise(NoiseMapBase map, float[] values, int resolution,
             Vector2 sampleSpacing, Vector2 worldOrigin)
         {

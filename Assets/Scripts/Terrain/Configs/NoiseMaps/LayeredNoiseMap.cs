@@ -16,6 +16,9 @@ namespace TerrainGeneration
         [field: SerializeField]
         public float AmplitudeMultiplier { get; private set; } = 1f;
 
+        /// <summary>
+        /// Fills an array with combined noise layers for a terrain grid.
+        /// </summary>
         public override void GetNoise(
             FastNoiseLite noise,
             float[] values,
@@ -86,6 +89,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Fills an array with combined noise layers for a world region.
+        /// </summary>
         public override void GetNoiseRegion(
             FastNoiseLite noise,
             float[] values,

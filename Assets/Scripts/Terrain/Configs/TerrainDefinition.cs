@@ -36,21 +36,33 @@ namespace TerrainGeneration
 
         public int Count => Size.x * Size.y;
 
+        /// <summary>
+        /// Applies the configured shape to a temperature value.
+        /// </summary>
         public float EvaluateTemperature(float temperature)
         {
             return Mathf.Clamp01(TemperatureShape.Evaluate(temperature));
         }
 
+        /// <summary>
+        /// Applies the configured shape to a humidity value.
+        /// </summary>
         public float EvaluateHumidity(float humidity)
         {
             return Mathf.Clamp01(HumidityShape.Evaluate(humidity));
         }
 
+        /// <summary>
+        /// Applies the configured shape to an elevation value.
+        /// </summary>
         public float EvaluateElevation(float elevation)
         {
             return Mathf.Clamp01(ElevationShape.Evaluate(elevation));
         }
 
+        /// <summary>
+        /// Checks whether all required noise maps are assigned.
+        /// </summary>
         public bool HasNoiseMaps()
         {
             return TemperatureNoiseMap != null

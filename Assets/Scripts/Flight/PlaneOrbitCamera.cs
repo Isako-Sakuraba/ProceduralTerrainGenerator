@@ -49,12 +49,18 @@ namespace Flight
             set => _target = value;
         }
 
+        /// <summary>
+        /// Finds the plane and places the camera behind it.
+        /// </summary>
         private void Start()
         {
             FindTargetIfNeeded();
             if (_target != null) SnapToTarget();
         }
 
+        /// <summary>
+        /// Reads the camera orbit and zoom input.
+        /// </summary>
         private void Update()
         {
             FindTargetIfNeeded();
@@ -86,6 +92,9 @@ namespace Flight
             }
         }
 
+        /// <summary>
+        /// Smoothly follows and looks at the target plane.
+        /// </summary>
         private void LateUpdate()
         {
             if (_target == null) return;
@@ -109,6 +118,9 @@ namespace Flight
             }
         }
 
+        /// <summary>
+        /// Gets the plane heading used to position the camera.
+        /// </summary>
         private Quaternion GetPlaneHeading()
         {
             if (_followPlaneRoll) return _target.rotation;
@@ -119,6 +131,9 @@ namespace Flight
                 : Quaternion.LookRotation(heading.normalized, Vector3.up);
         }
 
+        /// <summary>
+        /// Moves the camera in front of obstacles between it and the target.
+        /// </summary>
         private Vector3 ResolveCollision(Vector3 focus, Vector3 desiredPosition)
         {
             if (!_avoidObstacles) return desiredPosition;
@@ -140,6 +155,9 @@ namespace Flight
             return desiredPosition;
         }
 
+        /// <summary>
+        /// Finds a plane automatically when no target is assigned.
+        /// </summary>
         private void FindTargetIfNeeded()
         {
             if (_target != null || !_findPlaneAutomatically) return;
@@ -147,6 +165,9 @@ namespace Flight
             if (plane != null) _target = plane.transform;
         }
 
+        /// <summary>
+        /// Places the camera at its target position immediately.
+        /// </summary>
         private void SnapToTarget()
         {
             Vector3 focus = _target.TransformPoint(_focusOffset);
@@ -154,6 +175,9 @@ namespace Flight
             transform.rotation = Quaternion.LookRotation(focus - transform.position, _followPlaneRoll ? _target.up : Vector3.up);
         }
 
+        /// <summary>
+        /// Restores the cursor when the camera is disabled.
+        /// </summary>
         private void OnDisable()
         {
             if (!_lockCursorWhileOrbiting) return;
@@ -161,6 +185,9 @@ namespace Flight
             Cursor.visible = true;
         }
 
+        /// <summary>
+        /// Keeps the camera settings within valid ranges.
+        /// </summary>
         private void OnValidate()
         {
             _maximumDistance = Mathf.Max(_minimumDistance, _maximumDistance);

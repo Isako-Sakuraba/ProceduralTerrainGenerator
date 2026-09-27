@@ -8,6 +8,9 @@ namespace TerrainGeneration
     [RequireComponent(typeof(MeshRenderer))]
     public sealed class BiomeTerrainView : MonoBehaviour
     {
+        /// <summary>
+        /// Pairs a biome with its preview color.
+        /// </summary>
         [Serializable]
         private struct BiomeColor
         {
@@ -34,11 +37,17 @@ namespace TerrainGeneration
 
         public Texture2D Texture => _texture;
 
+        /// <summary>
+        /// Finds the components used by the biome view.
+        /// </summary>
         private void Awake()
         {
             EnsureReferences();
         }
 
+        /// <summary>
+        /// Finds any missing component references.
+        /// </summary>
         private void EnsureReferences()
         {
             _renderer = GetComponent<MeshRenderer>();
@@ -53,6 +62,9 @@ namespace TerrainGeneration
                 _surfaceGenerator = GetComponent<TerrainSurfaceGenerator>();
         }
 
+        /// <summary>
+        /// Starts listening for terrain generation and refreshes the view.
+        /// </summary>
         private void OnEnable()
         {
             EnsureReferences();
@@ -65,18 +77,27 @@ namespace TerrainGeneration
             Refresh();
         }
 
+        /// <summary>
+        /// Stops listening for terrain generation.
+        /// </summary>
         private void OnDisable()
         {
             if (_terrain != null)
                 _terrain.Generated -= OnTerrainGenerated;
         }
 
+        /// <summary>
+        /// Cleans up the generated preview texture.
+        /// </summary>
         private void OnDestroy()
         {
             if (_texture != null)
                 DestroyGeneratedObject(_texture);
         }
 
+        /// <summary>
+        /// Refreshes the biome view after editor changes.
+        /// </summary>
         private void OnValidate()
         {
             EnsureReferences();
@@ -85,11 +106,17 @@ namespace TerrainGeneration
                 Refresh();
         }
 
+        /// <summary>
+        /// Refreshes the view when the terrain is generated.
+        /// </summary>
         private void OnTerrainGenerated(TerrainGenerator terrain)
         {
             Refresh();
         }
 
+        /// <summary>
+        /// Rebuilds the biome preview from the terrain points.
+        /// </summary>
         public void Refresh()
         {
             EnsureReferences();
@@ -120,6 +147,9 @@ namespace TerrainGeneration
             ApplyTexture();
         }
 
+        /// <summary>
+        /// Creates a preview texture with the requested size when needed.
+        /// </summary>
         private void EnsureTexture(Vector2Int size)
         {
             int count = size.x * size.y;
@@ -146,6 +176,9 @@ namespace TerrainGeneration
             };
         }
 
+        /// <summary>
+        /// Finds the best matching biome for a terrain point.
+        /// </summary>
         private BiomeDefinition FindBiome(TerrainPoint point, SurfaceDefinition definition)
         {
             BiomeDefinition bestBiome = null;
@@ -171,6 +204,9 @@ namespace TerrainGeneration
             return bestBiome;
         }
 
+        /// <summary>
+        /// Gets the preview color assigned to a biome.
+        /// </summary>
         private Color32 GetBiomeColor(BiomeDefinition biome)
         {
             foreach (BiomeColor entry in _biomeColors)
@@ -182,6 +218,9 @@ namespace TerrainGeneration
             return _fallbackColor;
         }
 
+        /// <summary>
+        /// Applies the preview texture to the renderer.
+        /// </summary>
         private void ApplyTexture()
         {
             if (_renderer == null)
@@ -195,6 +234,9 @@ namespace TerrainGeneration
             _renderer.SetPropertyBlock(_propertyBlock);
         }
 
+        /// <summary>
+        /// Destroys a generated object safely in play mode or edit mode.
+        /// </summary>
         private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
         {
             if (Application.isPlaying)

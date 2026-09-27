@@ -9,12 +9,18 @@ namespace TerrainGeneration
         [field: SerializeField]
         public FastNoiseLite.NoiseType NoiseType { get; private set; }
 
+        /// <summary>
+        /// Applies this map's settings to a noise generator.
+        /// </summary>
         public override void Initialize(FastNoiseLite noise)
         {
             base.Initialize(noise);
             noise.SetNoiseType(NoiseType);
         }
 
+        /// <summary>
+        /// Fills an array with simple noise for a terrain grid.
+        /// </summary>
         public override void GetNoise(
             FastNoiseLite noise,
             float[] values,
@@ -41,6 +47,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Fills an array with simple noise for a world region.
+        /// </summary>
         public override void GetNoiseRegion(
             FastNoiseLite noise,
             float[] values,

@@ -14,6 +14,9 @@ namespace TerrainGeneration
         [field: SerializeField]
         public Vector2 Offset { get; private set; } = Vector2.zero;
 
+        /// <summary>
+        /// Fills an array with noise values for a terrain grid.
+        /// </summary>
         public abstract void GetNoise(
             FastNoiseLite noise,
             float[] values,
@@ -21,6 +24,9 @@ namespace TerrainGeneration
             Vector2 terrainScale,
             Vector2 terrainOffset);
 
+        /// <summary>
+        /// Fills an array with noise values for a world region.
+        /// </summary>
         public abstract void GetNoiseRegion(
             FastNoiseLite noise,
             float[] values,
@@ -30,6 +36,9 @@ namespace TerrainGeneration
             Vector2 terrainScale,
             Vector2 terrainOffset);
 
+        /// <summary>
+        /// Applies the base settings to a noise generator.
+        /// </summary>
         public virtual void Initialize(FastNoiseLite noise)
         {
             noise.SetFrequency(Frequency);

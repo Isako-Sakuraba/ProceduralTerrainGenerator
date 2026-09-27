@@ -18,6 +18,9 @@ namespace TerrainGeneration
         [field: SerializeField]
         public BiomeTextureDefinition TextureDefinition { get; private set; }
 
+        /// <summary>
+        /// Calculates how well the given conditions match this biome.
+        /// </summary>
         public float Evaluate(
             float temperature,
             float humidity,

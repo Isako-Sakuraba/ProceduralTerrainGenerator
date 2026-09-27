@@ -8,6 +8,9 @@ namespace TerrainGeneration
     [RequireComponent(typeof(MeshRenderer))]
     public sealed class SimpleTerrainView : MonoBehaviour
     {
+        /// <summary>
+        /// Chooses which terrain values are shown in the preview.
+        /// </summary>
         public enum ViewMode
         {
             Combined,
@@ -16,6 +19,9 @@ namespace TerrainGeneration
             Elevation
         }
 
+        /// <summary>
+        /// Chooses how terrain values are converted into colors.
+        /// </summary>
         public enum ColorScheme
         {
             Monochrome,
@@ -69,11 +75,17 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Finds the components used by the terrain view.
+        /// </summary>
         private void Awake()
         {
             EnsureReferences();
         }
 
+        /// <summary>
+        /// Finds any missing component references.
+        /// </summary>
         private void EnsureReferences()
         {
             _renderer = GetComponent<MeshRenderer>();
@@ -82,6 +94,9 @@ namespace TerrainGeneration
                 _propertyBlock = new MaterialPropertyBlock();
         }
 
+        /// <summary>
+        /// Starts listening for terrain generation and refreshes the view.
+        /// </summary>
         private void OnEnable()
         {
             EnsureReferences();
@@ -94,18 +109,27 @@ namespace TerrainGeneration
             Refresh();
         }
 
+        /// <summary>
+        /// Stops listening for terrain generation.
+        /// </summary>
         private void OnDisable()
         {
             if (_terrain != null)
                 _terrain.Generated -= OnTerrainGenerated;
         }
 
+        /// <summary>
+        /// Cleans up the generated preview texture.
+        /// </summary>
         private void OnDestroy()
         {
             if (_texture != null)
                 DestroyGeneratedObject(_texture);
         }
 
+        /// <summary>
+        /// Refreshes the terrain view after editor changes.
+        /// </summary>
         private void OnValidate()
         {
             EnsureReferences();
@@ -114,11 +138,17 @@ namespace TerrainGeneration
                 Refresh();
         }
 
+        /// <summary>
+        /// Refreshes the view when the terrain is generated.
+        /// </summary>
         private void OnTerrainGenerated(TerrainGenerator terrain)
         {
             Refresh();
         }
 
+        /// <summary>
+        /// Rebuilds the preview texture from the terrain points.
+        /// </summary>
         [Button]
         public void Refresh()
         {
@@ -159,6 +189,9 @@ namespace TerrainGeneration
             ApplyTexture();
         }
 
+        /// <summary>
+        /// Creates a preview texture with the requested size when needed.
+        /// </summary>
         private void EnsureTexture(Vector2Int size)
         {
             int count = size.x * size.y;
@@ -189,6 +222,9 @@ namespace TerrainGeneration
             };
         }
 
+        /// <summary>
+        /// Converts the terrain values into a preview color.
+        /// </summary>
         private Color32 EvaluateColor(
             float temperature,
             float humidity,
@@ -233,6 +269,9 @@ namespace TerrainGeneration
             };
         }
 
+        /// <summary>
+        /// Converts a noise value into the zero-to-one range.
+        /// </summary>
         private float Normalize(float value)
         {
             if (_remapNoiseFromSignedRange)
@@ -241,11 +280,17 @@ namespace TerrainGeneration
             return Mathf.Clamp01(value);
         }
 
+        /// <summary>
+        /// Converts a normalized value into a color byte.
+        /// </summary>
         private static byte ToByte(float value)
         {
             return (byte)Mathf.RoundToInt(value * 255f);
         }
 
+        /// <summary>
+        /// Applies the preview texture to the renderer.
+        /// </summary>
         private void ApplyTexture()
         {
             if (_renderer == null)
@@ -259,6 +304,9 @@ namespace TerrainGeneration
             _renderer.SetPropertyBlock(_propertyBlock);
         }
 
+        /// <summary>
+        /// Destroys a generated object safely in play mode or edit mode.
+        /// </summary>
         private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
         {
             if (Application.isPlaying)

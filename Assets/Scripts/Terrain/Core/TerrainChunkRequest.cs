@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    /// <summary>
+    /// What edges should be visible for a chunk.
+    /// </summary>
     [System.Flags]
     public enum TerrainChunkEdges
     {
@@ -13,6 +16,9 @@ namespace TerrainGeneration
         All = North | South | East | West
     }
 
+    /// <summary>
+    /// A data class that represents a calculation request for generators.
+    /// </summary>
     public readonly struct TerrainChunkRequest
     {
         public readonly Vector2Int Coordinate;
@@ -27,6 +33,9 @@ namespace TerrainGeneration
         public float SampleSpacing => WorldSize / CellsPerEdge;
         public int SampleResolution => CellsPerEdge + 2;
 
+        /// <summary>
+        /// Creates a chunk request with skirts on every edge.
+        /// </summary>
         public TerrainChunkRequest(Vector2Int coordinate, int lod, Vector2 worldOrigin,
             float worldSize, int cellsPerEdge, float cellTextureSizeMultiplier, int seed)
             : this(coordinate, lod, worldOrigin, worldSize, cellsPerEdge,
@@ -34,6 +43,9 @@ namespace TerrainGeneration
         {
         }
 
+        /// <summary>
+        /// Creates a chunk request with the chosen skirt edges.
+        /// </summary>
         public TerrainChunkRequest(Vector2Int coordinate, int lod, Vector2 worldOrigin,
             float worldSize, int cellsPerEdge, float cellTextureSizeMultiplier, int seed,
             TerrainChunkEdges skirtEdges)

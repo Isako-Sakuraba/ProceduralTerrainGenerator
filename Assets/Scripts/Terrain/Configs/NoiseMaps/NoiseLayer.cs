@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    /// <summary>
+    /// Stores the settings for one noise layer.
+    /// </summary>
     [Serializable]
     public class NoiseLayer
     {

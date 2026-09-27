@@ -22,6 +22,9 @@ namespace TerrainGeneration
         [field: SerializeField, ShowAssetPreview] public Texture2D Mountain { get; private set; }
         [field: SerializeField, ShowAssetPreview] public Texture2D MountainPeak { get; private set; }
 
+        /// <summary>
+        /// Gets the texture assigned to an elevation type.
+        /// </summary>
         public Texture2D GetTexture(ElevationType elevation)
         {
             return elevation switch
@@ -40,6 +43,9 @@ namespace TerrainGeneration
             };
         }
 
+        /// <summary>
+        /// Enumerates the textures in elevation order.
+        /// </summary>
         public IEnumerator<Texture2D> GetTextures()
         {
             yield return DeepOcean;
@@ -54,11 +60,17 @@ namespace TerrainGeneration
             yield return MountainPeak;
         }
 
+        /// <summary>
+        /// Creates a non-generic texture enumerator.
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Creates a texture enumerator.
+        /// </summary>
         public IEnumerator<Texture2D> GetEnumerator() => GetTextures();
     }
 }

@@ -51,6 +51,9 @@ namespace Flight
         public float Speed => _rigidbody == null ? 0f : _rigidbody.linearVelocity.magnitude;
         public float Throttle => _throttle;
 
+        /// <summary>
+        /// Sets up the plane's rigidbody and starting throttle.
+        /// </summary>
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -59,12 +62,18 @@ namespace Flight
             _throttle = _startingThrottle;
         }
 
+        /// <summary>
+        /// Gives the plane its initial forward speed.
+        /// </summary>
         private void Start()
         {
             if (_rigidbody.linearVelocity.sqrMagnitude < 0.01f)
                 _rigidbody.linearVelocity = transform.forward * Mathf.Lerp(_minimumSpeed, _maximumSpeed, _throttle);
         }
 
+        /// <summary>
+        /// Reads and smooths the player's flight controls.
+        /// </summary>
         private void Update()
         {
             float pitch = Input.GetAxisRaw(_pitchAxis) * (_invertPitch ? 1f : -1f);
@@ -88,6 +97,9 @@ namespace Flight
             _braking = Input.GetKey(_airBrakeKey);
         }
 
+        /// <summary>
+        /// Applies the plane's movement during the physics update.
+        /// </summary>
         private void FixedUpdate()
         {
             ApplySteering();
@@ -95,6 +107,9 @@ namespace Flight
             ApplyLift();
         }
 
+        /// <summary>
+        /// Rotates the plane based on its steering input and speed.
+        /// </summary>
         private void ApplySteering()
         {
             float speedRange = Mathf.Max(0.01f, _maximumSpeed - _minimumSpeed);
@@ -122,6 +137,9 @@ namespace Flight
             _rigidbody.MoveRotation(nextRotation);
         }
 
+        /// <summary>
+        /// Moves the plane toward its current target speed.
+        /// </summary>
         private void ApplyEngine()
         {
             float targetSpeed = Mathf.Lerp(_minimumSpeed, _maximumSpeed, _throttle);
@@ -135,6 +153,9 @@ namespace Flight
             _rigidbody.linearVelocity = Vector3.Lerp(_rigidbody.linearVelocity, desiredVelocity, alignment);
         }
 
+        /// <summary>
+        /// Adds lift based on the plane's current speed.
+        /// </summary>
         private void ApplyLift()
         {
             if (_lift <= 0f) return;
@@ -143,11 +164,17 @@ namespace Flight
             _rigidbody.AddForce(transform.up * (_lift * liftScale), ForceMode.Acceleration);
         }
 
+        /// <summary>
+        /// Reads an input axis when a name is provided.
+        /// </summary>
         private static float ReadOptionalAxis(string axisName)
         {
             return string.IsNullOrWhiteSpace(axisName) ? 0f : Input.GetAxisRaw(axisName);
         }
 
+        /// <summary>
+        /// Keeps the plane settings within valid ranges.
+        /// </summary>
         private void OnValidate()
         {
             _maximumSpeed = Mathf.Max(_minimumSpeed, _maximumSpeed);

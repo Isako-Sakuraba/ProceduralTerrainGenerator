@@ -19,11 +19,17 @@ namespace TerrainGeneration
         public int[] SurfaceIds => _surfaceIds;
         public Texture2DArray TextureArray => _textureArray;
 
+        /// <summary>
+        /// Releases generated textures after inspector changes.
+        /// </summary>
         private void OnValidate()
         {
             Release();
         }
 
+        /// <summary>
+        /// Generates surface IDs for the terrain points.
+        /// </summary>
         public void Generate(System.ReadOnlySpan<TerrainPoint> points)
         {
             if (_definition == null || !_definition.HasBiomes())
@@ -38,6 +44,9 @@ namespace TerrainGeneration
             Generate(points, _surfaceIds);
         }
 
+        /// <summary>
+        /// Writes surface IDs for the terrain points into a buffer.
+        /// </summary>
         public void Generate(System.ReadOnlySpan<TerrainPoint> points, int[] output)
         {
             if (_definition == null || !_definition.HasBiomes())
@@ -65,6 +74,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Creates the surface texture array when needed.
+        /// </summary>
         public void EnsureTextureArray()
         {
             if (_textureArray != null)
@@ -74,6 +86,9 @@ namespace TerrainGeneration
             BuildTextureArray();
         }
 
+        /// <summary>
+        /// Releases the generated texture array.
+        /// </summary>
         public void Release()
         {
             if (_textureArray != null)
@@ -83,12 +98,18 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Resizes the reusable surface ID buffer when needed.
+        /// </summary>
         private void EnsureSurfaceIds(int count)
         {
             if (_surfaceIds == null || _surfaceIds.Length != count)
                 _surfaceIds = new int[count];
         }
 
+        /// <summary>
+        /// Collects the unique textures used by all biomes.
+        /// </summary>
         private void CollectTextures()
         {
             _textures.Clear();
@@ -110,6 +131,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Builds a texture array from the collected textures.
+        /// </summary>
         private void BuildTextureArray()
         {
             if (_textures.Count == 0)
@@ -152,6 +176,9 @@ namespace TerrainGeneration
             _textureArray.Apply(false, false);
         }
 
+        /// <summary>
+        /// Finds the biome that best matches a terrain point.
+        /// </summary>
         private BiomeDefinition FindBiome(TerrainPoint point)
         {
             BiomeDefinition bestBiome = null;
@@ -174,6 +201,9 @@ namespace TerrainGeneration
             return bestBiome;
         }
 
+        /// <summary>
+        /// Gets the array index for a surface texture.
+        /// </summary>
         private int GetTextureId(Texture2D texture)
         {
             if (texture == null)
@@ -185,6 +215,9 @@ namespace TerrainGeneration
             return 0;
         }
 
+        /// <summary>
+        /// Destroys a generated Unity object in the current mode.
+        /// </summary>
         private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
         {
             if (Application.isPlaying)

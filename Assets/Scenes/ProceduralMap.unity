@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
   _seed: 4
-  _definition: {fileID: 11400000, guid: 20dffc97aadd3364ab757b5bc0a98047, type: 2}
+  _definition: {fileID: 11400000, guid: ba96f67c92a3e064491d5c637942d786, type: 2}
 --- !u!114 &1308468316
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,11 +12,17 @@ namespace TerrainGeneration
         [field: SerializeField]
         public ElevationSettings ElevationSettings { get; private set; } = new ElevationSettings();
 
+        /// <summary>
+        /// Checks whether any biomes are assigned.
+        /// </summary>
         public bool HasBiomes()
         {
             return Biomes != null && Biomes.Length > 0;
         }
 
+        /// <summary>
+        /// Finds the terrain type for an elevation value.
+        /// </summary>
         public ElevationType GetElevationType(float elevation)
         {
             if (ElevationSettings == null)
@@ -25,6 +31,9 @@ namespace TerrainGeneration
             return ElevationSettings.Evaluate(elevation);
         }
 
+        /// <summary>
+        /// Tries to get the elevation where the shore begins.
+        /// </summary>
         public bool TryGetWaterElevation(out float elevation)
         {
             if (ElevationSettings != null &&

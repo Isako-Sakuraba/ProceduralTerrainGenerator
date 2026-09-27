@@ -1,5 +1,9 @@
 namespace TerrainGeneration
 {
+    /// <summary>
+    /// Represents what type of terrain this is.
+    /// Exists to later map textures to terrain elevation.
+    /// </summary>
     public enum ElevationType
     {
         DeepOcean, // Deep ocean floor

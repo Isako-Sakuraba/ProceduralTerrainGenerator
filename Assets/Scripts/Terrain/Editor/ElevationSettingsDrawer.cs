@@ -24,6 +24,9 @@ namespace TerrainGeneration.Editor
             new Color(0.90f, 0.90f, 0.88f)
         };
 
+        /// <summary>
+        /// Calculates the height needed to draw the elevation settings.
+        /// </summary>
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             SerializedProperty points = property.FindPropertyRelative("_points");
@@ -32,6 +35,9 @@ namespace TerrainGeneration.Editor
             return EditorGUIUtility.singleLineHeight + Padding + MarkerHeight + Padding + SliderHeight + Padding + count * RowHeight;
         }
 
+        /// <summary>
+        /// Draws the elevation settings in the inspector.
+        /// </summary>
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             SerializedProperty points = property.FindPropertyRelative("_points");
@@ -63,6 +69,9 @@ namespace TerrainGeneration.Editor
             DrawRows(rowsRect, points);
         }
 
+        /// <summary>
+        /// Draws the colored elevation ranges.
+        /// </summary>
         private static void DrawRanges(Rect sliderRect, SerializedProperty points)
         {
             EditorGUI.DrawRect(sliderRect, new Color(0.18f, 0.18f, 0.18f));
@@ -98,6 +107,9 @@ namespace TerrainGeneration.Editor
             GUI.Box(sliderRect, GUIContent.none);
         }
 
+        /// <summary>
+        /// Draws the labels at each end of the slider.
+        /// </summary>
         private static void DrawTicks(Rect sliderRect)
         {
             GUIStyle style = EditorStyles.miniLabel;
@@ -106,6 +118,9 @@ namespace TerrainGeneration.Editor
             EditorGUI.LabelField(new Rect(sliderRect.xMax - 20f, sliderRect.yMax, 20f, RowHeight), "1", style);
         }
 
+        /// <summary>
+        /// Draws and handles one elevation marker.
+        /// </summary>
         private static void DrawMarker(Rect sliderRect, SerializedProperty point, int index)
         {
             SerializedProperty type = point.FindPropertyRelative("_type");
@@ -162,6 +177,9 @@ namespace TerrainGeneration.Editor
             EditorGUI.LabelField(nameRect, type.enumDisplayNames[type.enumValueIndex], EditorStyles.miniBoldLabel);
         }
 
+        /// <summary>
+        /// Draws the editable rows below the slider.
+        /// </summary>
         private static void DrawRows(Rect rowsRect, SerializedProperty points)
         {
             for (int i = 0; i < points.arraySize; i++)
@@ -181,6 +199,9 @@ namespace TerrainGeneration.Editor
             }
         }
 
+        /// <summary>
+        /// Gets the display color for an elevation type index.
+        /// </summary>
         private static Color GetColor(int index)
         {
             if (index < 0 || index >= Colors.Length)

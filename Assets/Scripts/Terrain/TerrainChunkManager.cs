@@ -6,6 +6,9 @@ namespace TerrainGeneration
 {
     public sealed class TerrainChunkManager : MonoBehaviour
     {
+        /// <summary>
+        /// Stores the settings for one terrain detail level.
+        /// </summary>
         [Serializable]
         private struct LodLevel
         {
@@ -15,6 +18,9 @@ namespace TerrainGeneration
             [Min(0f)] public float MaximumDistance;
         }
 
+        /// <summary>
+        /// Stores the state of an active terrain chunk.
+        /// </summary>
         private sealed class ActiveChunk
         {
             public TerrainChunkView View;
@@ -22,6 +28,9 @@ namespace TerrainGeneration
             public int Version;
         }
 
+        /// <summary>
+        /// Stores a pending chunk generation request.
+        /// </summary>
         private readonly struct QueuedGeneration
         {
             public readonly Vector2Int Coordinate;
@@ -30,6 +39,9 @@ namespace TerrainGeneration
             public readonly float Distance;
             public readonly bool GenerateData;
 
+            /// <summary>
+            /// Creates a queued generation request.
+            /// </summary>
             public QueuedGeneration(Vector2Int coordinate, int lod, int version, float distance, bool generateData)
             {
                 Coordinate = coordinate;
@@ -75,6 +87,9 @@ namespace TerrainGeneration
         private Vector2Int _lastTargetChunk = new Vector2Int(int.MinValue, int.MinValue);
         private Vector3 _lastLodPosition = new Vector3(float.PositiveInfinity, 0f, 0f);
 
+        /// <summary>
+        /// Finds the target and creates the initial chunk selection.
+        /// </summary>
         private void Start()
         {
             if (_target == null && Camera.main != null)
@@ -82,6 +97,9 @@ namespace TerrainGeneration
             RefreshSelection(true);
         }
 
+        /// <summary>
+        /// Updates chunk selection and processes queued generation work.
+        /// </summary>
         private void Update()
         {
             if (_target == null) return;
@@ -95,6 +113,9 @@ namespace TerrainGeneration
             ProcessQueue();
         }
 
+        /// <summary>
+        /// Refreshes the chunks and detail levels around the target.
+        /// </summary>
         public void RefreshSelection(bool force)
         {
             if (!ValidateConfiguration() || _target == null) return;
@@ -154,6 +175,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Generates the nearest queued chunks within the frame budget.
+        /// </summary>
         private void ProcessQueue()
         {
             int budget = _generationsPerFrame;
@@ -200,6 +224,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Adds or updates a chunk generation request.
+        /// </summary>
         private void QueueGeneration(Vector2Int coordinate, ActiveChunk chunk, float distance,
             bool generateData)
         {
@@ -211,6 +238,9 @@ namespace TerrainGeneration
                 distance, generateData);
         }
 
+        /// <summary>
+        /// Gets a chunk view from the pool or creates one.
+        /// </summary>
         private TerrainChunkView Acquire(Vector2Int coordinate)
         {
             TerrainChunkView view;
@@ -228,6 +258,9 @@ namespace TerrainGeneration
             return view;
         }
 
+        /// <summary>
+        /// Deactivates a chunk and returns its view to the pool.
+        /// </summary>
         private void Release(Vector2Int coordinate)
         {
             ActiveChunk chunk = _active[coordinate];
@@ -237,6 +270,9 @@ namespace TerrainGeneration
             _pool.Push(chunk.View);
         }
 
+        /// <summary>
+        /// Finds the edges that need skirts for a chunk.
+        /// </summary>
         private TerrainChunkEdges GetSkirtEdges(Vector2Int coordinate, int lod)
         {
             TerrainChunkEdges skirtEdges = TerrainChunkEdges.None;
@@ -247,6 +283,9 @@ namespace TerrainGeneration
             return skirtEdges;
         }
 
+        /// <summary>
+        /// Adds an edge when this chunk owns the seam.
+        /// </summary>
         private void AddOwnedEdge(ref TerrainChunkEdges skirtEdges, TerrainChunkEdges edge,
             Vector2Int neighborCoordinate, int lod)
         {
@@ -254,6 +293,9 @@ namespace TerrainGeneration
                 skirtEdges |= edge;
         }
 
+        /// <summary>
+        /// Marks neighboring chunks for seam updates.
+        /// </summary>
         private void MarkNeighborsForSeamRefresh(Vector2Int coordinate)
         {
             _seamRefresh.Add(coordinate + Vector2Int.up);
@@ -262,6 +304,9 @@ namespace TerrainGeneration
             _seamRefresh.Add(coordinate + Vector2Int.left);
         }
 
+        /// <summary>
+        /// Selects a detail level for the given distance.
+        /// </summary>
         private int SelectLod(float distance, int current)
         {
             int selected = _lodLevels.Length - 1;
@@ -274,6 +319,9 @@ namespace TerrainGeneration
             return selected;
         }
 
+        /// <summary>
+        /// Gets the highest configured water resolution.
+        /// </summary>
         private int GetMaximumWaterResolution()
         {
             int resolution = 1;
@@ -282,6 +330,9 @@ namespace TerrainGeneration
             return resolution;
         }
 
+        /// <summary>
+        /// Measures the distance from a point to a chunk boundary.
+        /// </summary>
         private float DistanceToChunk(Vector2 point, Vector2Int coordinate)
         {
             float minX = coordinate.x * _chunkSize;
@@ -291,18 +342,27 @@ namespace TerrainGeneration
             return Mathf.Sqrt(x * x + y * y);
         }
 
+        /// <summary>
+        /// Converts a local position to chunk coordinates.
+        /// </summary>
         private Vector2Int WorldToChunk(Vector3 localPosition)
         {
             return new Vector2Int(Mathf.FloorToInt(localPosition.x / _chunkSize),
                 Mathf.FloorToInt(localPosition.z / _chunkSize));
         }
 
+        /// <summary>
+        /// Checks that the required terrain settings are available.
+        /// </summary>
         private bool ValidateConfiguration()
         {
             return _terrainGenerator != null && _surfaceGenerator != null && _meshGenerator != null &&
                 _lodLevels != null && _lodLevels.Length > 0;
         }
 
+        /// <summary>
+        /// Keeps inspector values within valid limits.
+        /// </summary>
         private void OnValidate()
         {
             _chunkSize = Mathf.Max(1f, _chunkSize);
@@ -318,6 +378,9 @@ namespace TerrainGeneration
             }
         }
 
+        /// <summary>
+        /// Clears generated chunk state when the manager is destroyed.
+        /// </summary>
         private void OnDestroy()
         {
             _queue.Clear();

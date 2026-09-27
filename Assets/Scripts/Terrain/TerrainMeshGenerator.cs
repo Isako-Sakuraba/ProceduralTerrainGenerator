@@ -8,11 +8,14 @@ namespace TerrainGeneration
     public sealed class TerrainMeshGenerator : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private float _cellScale = 1f;
-        [SerializeField] private float _textureScale = 1f;
-        [SerializeField] private float _bottomHeight;
-        [SerializeField] private float _topHeight = 16f;
+        [SerializeField] private float _cellScale = 1f; // Size of a single cell in meters
+        [SerializeField] private float _textureScale = 1f; // How big is the texture. 1 means 1 meter = 1 texture
+        [SerializeField] private float _bottomHeight; // Vertical bottom position
+        [SerializeField] private float _topHeight = 16f; // Vertical top position
 
+        /// <summary>
+        /// Direction of a particular face.
+        /// </summary>
         public enum FaceDirection
         {
             Top,
@@ -22,12 +25,18 @@ namespace TerrainGeneration
             West
         }
 
+        /// <summary>
+        /// Stores metadata for one generated terrain face.
+        /// </summary>
         public readonly struct TerrainFace
         {
             public readonly int CellIndex;
             public readonly int VertexStart;
             public readonly FaceDirection Direction;
 
+            /// <summary>
+            /// Creates metadata for a generated terrain face.
+            /// </summary>
             public TerrainFace(int cellIndex, int vertexStart, FaceDirection direction)
             {
                 CellIndex = cellIndex;
@@ -54,11 +63,17 @@ namespace TerrainGeneration
         public TerrainFace[] FaceMetadata => _faceMetadata;
         public int SettingsVersion => _settingsVersion;
 
+        /// <summary>
+        /// Converts normalized elevation to terrain height.
+        /// </summary>
         public float EvaluateHeight(float elevation)
         {
             return Mathf.Lerp(_bottomHeight, _topHeight, Mathf.Clamp01(elevation));
         }
 
+        /// <summary>
+        /// Validates mesh settings after inspector changes.
+        /// </summary>
         private void OnValidate()
         {
             _cellScale = Mathf.Max(0.01f, _cellScale);
@@ -70,6 +85,9 @@ namespace TerrainGeneration
             _settingsVersion++;
         }
 
+        /// <summary>
+        /// Generates a terrain mesh from a grid of points.
+        /// </summary>
         public Mesh Generate(System.ReadOnlySpan<TerrainPoint> points, Vector2Int size)
         {
             ClearBuffers();
@@ -104,6 +122,9 @@ namespace TerrainGeneration
             return _mesh;
         }
 
+        /// <summary>
+        /// Generates a chunk mesh into the target mesh.
+        /// </summary>
         public void Generate(TerrainChunkData data, Mesh target)
         {
             if (data == null || target == null)
@@ -151,6 +172,9 @@ namespace TerrainGeneration
             target.RecalculateBounds();
         }
 
+        /// <summary>
+        /// Adds side faces using padded neighboring samples.
+        /// </summary>
         private void AddPaddedSideFaces(System.ReadOnlySpan<TerrainPoint> points, int width,
             int cells, TerrainChunkEdges skirtEdges, int index, int x, int y,
             float height, float spacing)
@@ -198,6 +222,9 @@ namespace TerrainGeneration
             else if (west < height) AddWestFace(index, x, y, west, height, spacing);
         }
 
+        /// <summary>
+        /// Adds a top face using a temporary cell scale.
+        /// </summary>
         private void AddTopFace(int index, int x, int y, float height, float scale)
         {
             float previous = _cellScale;
@@ -206,30 +233,45 @@ namespace TerrainGeneration
             _cellScale = previous;
         }
 
+        /// <summary>
+        /// Adds a north face using a temporary cell scale.
+        /// </summary>
         private void AddNorthFace(int index, int x, int y, float bottom, float top, float scale)
         {
             float previous = _cellScale; _cellScale = scale;
             AddNorthFace(index, x, y, bottom, top); _cellScale = previous;
         }
 
+        /// <summary>
+        /// Adds a south face using a temporary cell scale.
+        /// </summary>
         private void AddSouthFace(int index, int x, int y, float bottom, float top, float scale)
         {
             float previous = _cellScale; _cellScale = scale;
             AddSouthFace(index, x, y, bottom, top); _cellScale = previous;
         }
 
+        /// <summary>
+        /// Adds an east face using a temporary cell scale.
+        /// </summary>
         private void AddEastFace(int index, int x, int y, float bottom, float top, float scale)
         {
             float previous = _cellScale; _cellScale = scale;
             AddEastFace(index, x, y, bottom, top); _cellScale = previous;
         }
 
+        /// <summary>
+        /// Adds a west face using a temporary cell scale.
+        /// </summary>
         private void AddWestFace(int index, int x, int y, float bottom, float top, float scale)
         {
             float previous = _cellScale; _cellScale = scale;
             AddWestFace(index, x, y, bottom, top); _cellScale = previous;
         }
 
+        /// <summary>
+        /// Releases the generated mesh and clears temporary buffers.
+        /// </summary>
         public void Release()
         {
             if (_mesh != null)
@@ -242,6 +284,9 @@ namespace TerrainGeneration
             ClearBuffers();
         }
 
+        /// <summary>
+        /// Adds visible side faces around a terrain cell.
+        /// </summary>
         private void AddSideFaces(System.ReadOnlySpan<TerrainPoint> points, Vector2Int size, int index, int x, int y, float height)
         {
             float northHeight = GetNeighborHeight(points, size, x, y + 1);
@@ -262,6 +307,9 @@ namespace TerrainGeneration
                 AddWestFace(index, x, y, westHeight, height);
         }
 
+        /// <summary>
+        /// Adds the top face of a terrain cell.
+        /// </summary>
         private void AddTopFace(int index, int x, int y, float height)
         {
             int start = _vertices.Count;
@@ -293,6 +341,9 @@ namespace TerrainGeneration
             AddSurfaceUvs(index);
         }
 
+        /// <summary>
+        /// Adds the north face of a terrain cell.
+        /// </summary>
         private void AddNorthFace(int index, int x, int y, float bottom, float top)
         {
             int start = _vertices.Count;
@@ -312,6 +363,9 @@ namespace TerrainGeneration
             AddSurfaceUvs(index);
         }
 
+        /// <summary>
+        /// Adds the south face of a terrain cell.
+        /// </summary>
         private void AddSouthFace(int index, int x, int y, float bottom, float top)
         {
             int start = _vertices.Count;
@@ -331,6 +385,9 @@ namespace TerrainGeneration
             AddSurfaceUvs(index);
         }
 
+        /// <summary>
+        /// Adds the east face of a terrain cell.
+        /// </summary>
         private void AddEastFace(int index, int x, int y, float bottom, float top)
         {
             int start = _vertices.Count;
@@ -350,6 +407,9 @@ namespace TerrainGeneration
             AddSurfaceUvs(index);
         }
 
+        /// <summary>
+        /// Adds the west face of a terrain cell.
+        /// </summary>
         private void AddWestFace(int index, int x, int y, float bottom, float top)
         {
             int start = _vertices.Count;
@@ -369,6 +429,9 @@ namespace TerrainGeneration
             AddSurfaceUvs(index);
         }
 
+        /// <summary>
+        /// Adds surface texture coordinates for one face.
+        /// </summary>
         private void AddSurfaceUvs(int index)
         {
             if (_chunkSurfaceIds == null) return;
@@ -379,6 +442,9 @@ namespace TerrainGeneration
             _surfaceUvs.Add(surface);
         }
 
+        /// <summary>
+        /// Adds one normal for each vertex of a face.
+        /// </summary>
         private void AddNormals(Vector3 normal)
         {
             _normals.Add(normal);
@@ -387,6 +453,9 @@ namespace TerrainGeneration
             _normals.Add(normal);
         }
 
+        /// <summary>
+        /// Adds texture coordinates for a vertical face.
+        /// </summary>
         private void AddSideUvs(float horizontalStart, float horizontalEnd, float bottom, float top)
         {
             float uvCellScale = (_chunkUvCellScale > 0f ? _chunkUvCellScale : _cellScale) /
@@ -403,6 +472,9 @@ namespace TerrainGeneration
             _uvs.Add(new Vector2(endUv, bottomUv));
         }
 
+        /// <summary>
+        /// Adds the two triangles of a quad.
+        /// </summary>
         private void AddTriangles(int start)
         {
             _triangles.Add(start);
@@ -413,6 +485,9 @@ namespace TerrainGeneration
             _triangles.Add(start + 3);
         }
 
+        /// <summary>
+        /// Creates the reusable mesh when needed.
+        /// </summary>
         private void EnsureMesh()
         {
             if (_mesh != null)
@@ -421,6 +496,9 @@ namespace TerrainGeneration
             _mesh = new Mesh { name = "Generated Terrain Mesh" };
         }
 
+        /// <summary>
+        /// Clears all temporary mesh buffers.
+        /// </summary>
         private void ClearBuffers()
         {
             _vertices.Clear();
@@ -431,6 +509,9 @@ namespace TerrainGeneration
             _faces.Clear();
         }
 
+        /// <summary>
+        /// Gets a neighboring cell height or the bottom height outside the grid.
+        /// </summary>
         private float GetNeighborHeight(System.ReadOnlySpan<TerrainPoint> points, Vector2Int size, int x, int y)
         {
             if (x < 0 || y < 0 || x >= size.x || y >= size.y)
@@ -440,16 +521,25 @@ namespace TerrainGeneration
             return GetHeight(points[index]);
         }
 
+        /// <summary>
+        /// Gets the world height of a terrain point.
+        /// </summary>
         private float GetHeight(TerrainPoint point)
         {
             return EvaluateHeight(point.Elevation);
         }
 
+        /// <summary>
+        /// Converts grid coordinates to a flat array index.
+        /// </summary>
         private static int GetIndex(int x, int y, int width)
         {
             return y * width + x;
         }
 
+        /// <summary>
+        /// Destroys a generated Unity object in the current mode.
+        /// </summary>
         private static void DestroyGeneratedObject(UnityEngine.Object generatedObject)
         {
             if (Application.isPlaying)

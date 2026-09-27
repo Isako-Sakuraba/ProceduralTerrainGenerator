@@ -3,9 +3,15 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
+    /// <summary>
+    /// Stores the elevation thresholds for terrain types.
+    /// </summary>
     [Serializable]
     public sealed class ElevationSettings
     {
+        /// <summary>
+        /// Stores one terrain type and its elevation threshold.
+        /// </summary>
         [Serializable]
         public struct Point
         {
@@ -18,6 +24,9 @@ namespace TerrainGeneration
             public ElevationType Type => _type;
             public float Elevation => _elevation;
 
+            /// <summary>
+            /// Creates an elevation threshold point.
+            /// </summary>
             public Point(ElevationType type, float elevation)
             {
                 _type = type;
@@ -40,6 +49,9 @@ namespace TerrainGeneration
 
         public ReadOnlySpan<Point> Points => _points;
 
+        /// <summary>
+        /// Finds the terrain type for an elevation value.
+        /// </summary>
         public ElevationType Evaluate(float elevation)
         {
             elevation = Mathf.Clamp01(elevation);
@@ -65,6 +77,9 @@ namespace TerrainGeneration
             return result;
         }
 
+        /// <summary>
+        /// Tries to find the threshold for a terrain type.
+        /// </summary>
         public bool TryGetElevation(ElevationType type, out float elevation)
         {
             if (_points != null)
