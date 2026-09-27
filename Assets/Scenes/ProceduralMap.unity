@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
   _seed: 345
-  _definition: {fileID: 11400000, guid: ff5baa093722fad45a9cf280a3b356fd, type: 2}
+  _definition: {fileID: 11400000, guid: 690c91d7fa3b801468ae60e180fbab77, type: 2}
 --- !u!33 &825721710
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -698,8 +698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf8ae98110e04a4bbf756979bcea73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainGenerator
-  _seed: 335
-  _definition: {fileID: 11400000, guid: 33ab66aaafd3eb74d9a0f914676b0775, type: 2}
+  _seed: 375
+  _definition: {fileID: 11400000, guid: d6da60400ddf49b41b60f02d24049f8f, type: 2}
 --- !u!33 &870239543
 MeshFilter:
   m_ObjectHideFlags: 0

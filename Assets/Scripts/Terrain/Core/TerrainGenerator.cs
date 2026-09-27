@@ -46,9 +46,9 @@ namespace TerrainGeneration
 
                 for (int i = 0; i < count; i++)
                 {
-                    float t = temperature[i];
-                    float h = humidity[i];
-                    float e = elevation[i];
+                    float t = _definition.EvaluateTemperature(temperature[i]);
+                    float h = _definition.EvaluateHumidity(humidity[i]);
+                    float e = _definition.EvaluateElevation(elevation[i]);
 
                     _points[i] = new TerrainPoint() { Temperature = t, Humidity = h, Elevation = e };
                 }

@@ -25,12 +25,16 @@ MonoBehaviour:
     <Scale>k__BackingField: {x: 1, y: 1}
     <Offset>k__BackingField: {x: 900, y: 1700}
   - <Active>k__BackingField: 1
-    <NoiseType>k__BackingField: 3
-    <Scale>k__BackingField: {x: 1, y: 1}
-    <Offset>k__BackingField: {x: 4400, y: 2600}
-  - <Active>k__BackingField: 1
     <NoiseType>k__BackingField: 2
     <Scale>k__BackingField: {x: 1, y: 1}
     <Offset>k__BackingField: {x: 2300, y: 7300}
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 3
+    <Scale>k__BackingField: {x: 0.2, y: 0.2}
+    <Offset>k__BackingField: {x: 2140, y: 7126}
+  - <Active>k__BackingField: 1
+    <NoiseType>k__BackingField: 4
+    <Scale>k__BackingField: {x: 0.2, y: 0.2}
+    <Offset>k__BackingField: {x: 2140, y: 7126}
   <Lacunarity>k__BackingField: 2.35
-  <AmplitudeMultiplier>k__BackingField: 0.56
+  <AmplitudeMultiplier>k__BackingField: 0.64

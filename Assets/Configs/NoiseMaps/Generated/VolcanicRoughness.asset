@@ -25,8 +25,8 @@ MonoBehaviour:
     <Scale>k__BackingField: {x: 1, y: 1}
     <Offset>k__BackingField: {x: 1600, y: 4700}
   - <Active>k__BackingField: 1
-    <NoiseType>k__BackingField: 5
-    <Scale>k__BackingField: {x: 1, y: 1}
+    <NoiseType>k__BackingField: 4
+    <Scale>k__BackingField: {x: 0.2, y: 0.2}
     <Offset>k__BackingField: {x: 5300, y: 2800}
   - <Active>k__BackingField: 1
     <NoiseType>k__BackingField: 3
