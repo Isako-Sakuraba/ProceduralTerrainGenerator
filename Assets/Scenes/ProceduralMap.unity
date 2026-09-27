@@ -18,8 +18,8 @@ RenderSettings:
   m_FogColor: {r: 0.6313726, g: 0.7529412, b: 1, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 1024
-  m_LinearFogEnd: 2048
+  m_LinearFogStart: 512
+  m_LinearFogEnd: 1536
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 195788769}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.0665, z: -7.2428}
+  m_LocalPosition: {x: 0, y: 2.0665, z: -4.022799}
   m_LocalScale: {x: 0.66, y: 2.5829432, z: 1.7234249}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -450,9 +450,9 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
+  m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
@@ -512,7 +512,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2048
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -807,7 +807,7 @@ Transform:
   m_GameObject: {fileID: 872555971}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6.96}
+  m_LocalPosition: {x: 0, y: 0, z: -3.7399988}
   m_LocalScale: {x: 5.1, y: 0.43, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -915,8 +915,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147836753}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 47.47417, y: -207.9, z: -116.19343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -999,7 +999,7 @@ MonoBehaviour:
   _cellScale: 0.04
   _textureScale: 0.64
   _bottomHeight: 0
-  _topHeight: 289
+  _topHeight: 256
 --- !u!114 &1308468318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,7 +1073,7 @@ Transform:
   m_GameObject: {fileID: 1335232708}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 3.22}
   m_LocalScale: {x: 12.61, y: 0.43, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1411,7 +1411,7 @@ Transform:
   m_GameObject: {fileID: 1459346895}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3039, z: -2.4035}
+  m_LocalPosition: {x: 0, y: 0.3039, z: 0.81650114}
   m_LocalScale: {x: 1.97118, y: 1.6079, z: 11.918337}
   m_ConstrainProportionsScale: 0
   m_Children: []

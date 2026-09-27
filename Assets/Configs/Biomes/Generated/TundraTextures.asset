@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
   <DeepOcean>k__BackingField: {fileID: 2800000, guid: b145490690bd9084683101cc2b32abf5, type: 3}
   <ShallowWater>k__BackingField: {fileID: 2800000, guid: 6f532a76909dd1c49887e7c4b4878dca, type: 3}
-  <Shore>k__BackingField: {fileID: 2800000, guid: 495da83e4fad03a41a4d55b7ab5cb2f3, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: 7532c5b685fecb4438025d39e2529e8e, type: 3}
   <Lowland>k__BackingField: {fileID: 2800000, guid: 40ce497a11728e34988a735ed0f25dc3, type: 3}
   <Highland>k__BackingField: {fileID: 2800000, guid: 40ce497a11728e34988a735ed0f25dc3, type: 3}
-  <MountainBase>k__BackingField: {fileID: 2800000, guid: 3eea1d4f966a0df42bcde5bfedb9f805, type: 3}
-  <Mountain>k__BackingField: {fileID: 2800000, guid: 39a2dd95aea159f4d8ba2e043cbb223e, type: 3}
-  <MountainPeak>k__BackingField: {fileID: 2800000, guid: 40ce497a11728e34988a735ed0f25dc3, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: 6f532a76909dd1c49887e7c4b4878dca, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: 6f532a76909dd1c49887e7c4b4878dca, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: b145490690bd9084683101cc2b32abf5, type: 3}

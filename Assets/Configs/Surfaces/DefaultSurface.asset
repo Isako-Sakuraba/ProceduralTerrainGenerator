@@ -25,15 +25,15 @@ MonoBehaviour:
     - _type: 0
       _elevation: 0
     - _type: 1
-      _elevation: 0.079
+      _elevation: 0.090183556
     - _type: 2
-      _elevation: 0.3606371
+      _elevation: 0.39984035
     - _type: 3
-      _elevation: 0.43572238
+      _elevation: 0.4142059
     - _type: 4
-      _elevation: 0.51308304
+      _elevation: 0.4796489
     - _type: 5
-      _elevation: 0.58361775
+      _elevation: 0.49241823
     - _type: 6
       _elevation: 0.82
     - _type: 7
