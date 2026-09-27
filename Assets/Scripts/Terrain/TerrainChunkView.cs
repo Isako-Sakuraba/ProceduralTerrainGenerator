@@ -9,8 +9,6 @@ namespace TerrainGeneration
     {
         private static readonly int TerrainTexturesId = Shader.PropertyToID("_TerrainTextures");
 
-        private readonly List<TerrainMeshGenerator.TerrainFace> _faces = new List<TerrainMeshGenerator.TerrainFace>();
-        private readonly List<Vector2> _surfaceUvs = new List<Vector2>();
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;
         private MaterialPropertyBlock _propertyBlock;
@@ -57,21 +55,21 @@ namespace TerrainGeneration
 
         public void Apply(TerrainMeshGenerator meshGenerator, TerrainSurfaceGenerator surfaceGenerator,
             TerrainChunkRequest request, int version, Material waterMaterial, int waterResolution,
-            int maximumWaterResolution)
+            int maximumWaterResolution, bool rebuildWater)
         {
             if (version != GenerationVersion || request.Coordinate != Coordinate)
                 return;
 
-            meshGenerator.Generate(Data, _mesh, _faces);
-            ApplySurfaceIds(Data.SurfaceIds);
+            meshGenerator.Generate(Data, _mesh);
             _meshFilter.sharedMesh = _mesh;
 
             surfaceGenerator.EnsureTextureArray();
             _meshRenderer.GetPropertyBlock(_propertyBlock);
             _propertyBlock.SetTexture(TerrainTexturesId, surfaceGenerator.TextureArray);
             _meshRenderer.SetPropertyBlock(_propertyBlock);
-            ApplyWater(meshGenerator, surfaceGenerator.Definition, request, waterMaterial,
-                waterResolution, maximumWaterResolution);
+            if (rebuildWater || _waterObject == null)
+                ApplyWater(meshGenerator, surfaceGenerator.Definition, request, waterMaterial,
+                    waterResolution, maximumWaterResolution);
         }
 
         public void Deactivate()
@@ -80,23 +78,6 @@ namespace TerrainGeneration
             Coordinate = default;
             Lod = -1;
             gameObject.SetActive(false);
-        }
-
-        private void ApplySurfaceIds(int[] surfaceIds)
-        {
-            _surfaceUvs.Clear();
-            for (int i = 0; i < _mesh.vertexCount; i++)
-                _surfaceUvs.Add(Vector2.zero);
-
-            for (int i = 0; i < _faces.Count; i++)
-            {
-                TerrainMeshGenerator.TerrainFace face = _faces[i];
-                Vector2 id = new Vector2(surfaceIds[face.CellIndex], 0f);
-                for (int vertex = 0; vertex < 4; vertex++)
-                    _surfaceUvs[face.VertexStart + vertex] = id;
-            }
-
-            _mesh.SetUVs(1, _surfaceUvs);
         }
 
         private void EnsureResources()

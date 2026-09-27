@@ -28,13 +28,15 @@ namespace TerrainGeneration
             public readonly int Lod;
             public readonly int Version;
             public readonly float Distance;
+            public readonly bool GenerateData;
 
-            public QueuedGeneration(Vector2Int coordinate, int lod, int version, float distance)
+            public QueuedGeneration(Vector2Int coordinate, int lod, int version, float distance, bool generateData)
             {
                 Coordinate = coordinate;
                 Lod = lod;
                 Version = version;
                 Distance = distance;
+                GenerateData = generateData;
             }
         }
 
@@ -65,7 +67,8 @@ namespace TerrainGeneration
 
         private readonly Dictionary<Vector2Int, ActiveChunk> _active = new Dictionary<Vector2Int, ActiveChunk>();
         private readonly Stack<TerrainChunkView> _pool = new Stack<TerrainChunkView>();
-        private readonly List<QueuedGeneration> _queue = new List<QueuedGeneration>();
+        private readonly Dictionary<Vector2Int, QueuedGeneration> _queue =
+            new Dictionary<Vector2Int, QueuedGeneration>();
         private readonly HashSet<Vector2Int> _desired = new HashSet<Vector2Int>();
         private readonly List<Vector2Int> _release = new List<Vector2Int>();
         private readonly HashSet<Vector2Int> _seamRefresh = new HashSet<Vector2Int>();
@@ -130,7 +133,7 @@ namespace TerrainGeneration
                 {
                     chunk.Lod = lod;
                     chunk.Version = chunk.View.RequestLod(lod);
-                    _queue.Add(new QueuedGeneration(coordinate, lod, chunk.Version, distance));
+                    QueueGeneration(coordinate, chunk, distance, true);
                     MarkNeighborsForSeamRefresh(coordinate);
                 }
             }
@@ -147,9 +150,7 @@ namespace TerrainGeneration
             foreach (Vector2Int coordinate in _seamRefresh)
             {
                 if (!_active.TryGetValue(coordinate, out ActiveChunk chunk)) continue;
-                chunk.Version = chunk.View.RequestLod(chunk.Lod);
-                _queue.Add(new QueuedGeneration(coordinate, chunk.Lod, chunk.Version,
-                    DistanceToChunk(targetLocal, coordinate)));
+                QueueGeneration(coordinate, chunk, DistanceToChunk(targetLocal, coordinate), false);
             }
         }
 
@@ -158,14 +159,16 @@ namespace TerrainGeneration
             int budget = _generationsPerFrame;
             while (budget > 0 && _queue.Count > 0)
             {
-                int best = 0;
-                for (int i = 1; i < _queue.Count; i++)
-                    if (_queue[i].Distance < _queue[best].Distance) best = i;
-
-                QueuedGeneration queued = _queue[best];
-                int last = _queue.Count - 1;
-                _queue[best] = _queue[last];
-                _queue.RemoveAt(last);
+                QueuedGeneration queued = default;
+                bool found = false;
+                foreach (QueuedGeneration candidate in _queue.Values)
+                {
+                    if (found && candidate.Distance >= queued.Distance) continue;
+                    queued = candidate;
+                    found = true;
+                }
+                if (!found) break;
+                _queue.Remove(queued.Coordinate);
 
                 if (!_active.TryGetValue(queued.Coordinate, out ActiveChunk chunk) ||
                     chunk.Version != queued.Version || chunk.Lod != queued.Lod)
@@ -182,12 +185,30 @@ namespace TerrainGeneration
                     Mathf.Max(0.01f, _lodLevels[queued.Lod].CellTextureSizeMultiplier),
                     _terrainGenerator.Seed, skirtEdges);
 
-                _terrainGenerator.Generate(request, chunk.View.Data);
-                _surfaceGenerator.Generate(chunk.View.Data.Points, chunk.View.Data.SurfaceIds);
+                if (queued.GenerateData)
+                {
+                    _terrainGenerator.Generate(request, chunk.View.Data);
+                    _surfaceGenerator.Generate(chunk.View.Data.Points, chunk.View.Data.SurfaceIds);
+                }
+                else
+                {
+                    chunk.View.Data.Prepare(request);
+                }
                 chunk.View.Apply(_meshGenerator, _surfaceGenerator, request, queued.Version,
                     _waterMaterial, Mathf.Max(1, _lodLevels[queued.Lod].WaterResolution),
-                    GetMaximumWaterResolution());
+                    GetMaximumWaterResolution(), queued.GenerateData);
             }
+        }
+
+        private void QueueGeneration(Vector2Int coordinate, ActiveChunk chunk, float distance,
+            bool generateData)
+        {
+            if (_queue.TryGetValue(coordinate, out QueuedGeneration pending))
+                generateData |= pending.GenerateData;
+
+            chunk.Version = chunk.View.RequestLod(chunk.Lod);
+            _queue[coordinate] = new QueuedGeneration(coordinate, chunk.Lod, chunk.Version,
+                distance, generateData);
         }
 
         private TerrainChunkView Acquire(Vector2Int coordinate)
@@ -211,6 +232,7 @@ namespace TerrainGeneration
         {
             ActiveChunk chunk = _active[coordinate];
             _active.Remove(coordinate);
+            _queue.Remove(coordinate);
             chunk.View.Deactivate();
             _pool.Push(chunk.View);
         }

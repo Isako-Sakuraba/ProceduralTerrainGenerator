@@ -39,6 +39,7 @@ namespace TerrainGeneration
         private readonly List<Vector3> _vertices = new List<Vector3>();
         private readonly List<Vector3> _normals = new List<Vector3>();
         private readonly List<Vector2> _uvs = new List<Vector2>();
+        private readonly List<Vector2> _surfaceUvs = new List<Vector2>();
         private readonly List<int> _triangles = new List<int>();
         private readonly List<TerrainFace> _faces = new List<TerrainFace>();
 
@@ -47,6 +48,7 @@ namespace TerrainGeneration
         private int _settingsVersion;
         private float _chunkUvCellScale = -1f;
         private float _chunkTextureSizeMultiplier = 1f;
+        private int[] _chunkSurfaceIds;
 
         public Mesh Mesh => _mesh;
         public TerrainFace[] FaceMetadata => _faceMetadata;
@@ -102,10 +104,10 @@ namespace TerrainGeneration
             return _mesh;
         }
 
-        public void Generate(TerrainChunkData data, Mesh target, List<TerrainFace> faceMetadata)
+        public void Generate(TerrainChunkData data, Mesh target)
         {
-            if (data == null || target == null || faceMetadata == null)
-                throw new System.ArgumentNullException("Chunk data, target mesh and metadata are required.");
+            if (data == null || target == null)
+                throw new System.ArgumentNullException("Chunk data and target mesh are required.");
 
             ClearBuffers();
             int cells = data.CellsPerEdge;
@@ -113,6 +115,7 @@ namespace TerrainGeneration
             float spacing = data.SampleSpacing;
             _chunkUvCellScale = _cellScale;
             _chunkTextureSizeMultiplier = Mathf.Max(0.01f, data.CellTextureSizeMultiplier);
+            _chunkSurfaceIds = data.SurfaceIds;
 
             try
             {
@@ -135,6 +138,7 @@ namespace TerrainGeneration
             {
                 _chunkUvCellScale = -1f;
                 _chunkTextureSizeMultiplier = 1f;
+                _chunkSurfaceIds = null;
             }
 
             target.Clear();
@@ -142,10 +146,9 @@ namespace TerrainGeneration
             target.SetVertices(_vertices);
             target.SetNormals(_normals);
             target.SetUVs(0, _uvs);
+            target.SetUVs(1, _surfaceUvs);
             target.SetTriangles(_triangles, 0);
             target.RecalculateBounds();
-            faceMetadata.Clear();
-            faceMetadata.AddRange(_faces);
         }
 
         private void AddPaddedSideFaces(System.ReadOnlySpan<TerrainPoint> points, int width,
@@ -287,6 +290,7 @@ namespace TerrainGeneration
 
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.Top));
+            AddSurfaceUvs(index);
         }
 
         private void AddNorthFace(int index, int x, int y, float bottom, float top)
@@ -302,9 +306,10 @@ namespace TerrainGeneration
             _vertices.Add(new Vector3(x0, bottom, z1));
 
             AddNormals(Vector3.forward);
-            AddSideUvs(bottom, top);
+            AddSideUvs(x + 1, x, bottom, top);
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.North));
+            AddSurfaceUvs(index);
         }
 
         private void AddSouthFace(int index, int x, int y, float bottom, float top)
@@ -320,9 +325,10 @@ namespace TerrainGeneration
             _vertices.Add(new Vector3(x1, bottom, z0));
 
             AddNormals(Vector3.back);
-            AddSideUvs(bottom, top);
+            AddSideUvs(x, x + 1, bottom, top);
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.South));
+            AddSurfaceUvs(index);
         }
 
         private void AddEastFace(int index, int x, int y, float bottom, float top)
@@ -338,9 +344,10 @@ namespace TerrainGeneration
             _vertices.Add(new Vector3(x1, bottom, z1));
 
             AddNormals(Vector3.right);
-            AddSideUvs(bottom, top);
+            AddSideUvs(y, y + 1, bottom, top);
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.East));
+            AddSurfaceUvs(index);
         }
 
         private void AddWestFace(int index, int x, int y, float bottom, float top)
@@ -356,9 +363,20 @@ namespace TerrainGeneration
             _vertices.Add(new Vector3(x0, bottom, z0));
 
             AddNormals(Vector3.left);
-            AddSideUvs(bottom, top);
+            AddSideUvs(y + 1, y, bottom, top);
             AddTriangles(start);
             _faces.Add(new TerrainFace(index, start, FaceDirection.West));
+            AddSurfaceUvs(index);
+        }
+
+        private void AddSurfaceUvs(int index)
+        {
+            if (_chunkSurfaceIds == null) return;
+            Vector2 surface = new Vector2(_chunkSurfaceIds[index], 0f);
+            _surfaceUvs.Add(surface);
+            _surfaceUvs.Add(surface);
+            _surfaceUvs.Add(surface);
+            _surfaceUvs.Add(surface);
         }
 
         private void AddNormals(Vector3 normal)
@@ -369,19 +387,20 @@ namespace TerrainGeneration
             _normals.Add(normal);
         }
 
-        private void AddSideUvs(float bottom, float top)
+        private void AddSideUvs(float horizontalStart, float horizontalEnd, float bottom, float top)
         {
             float uvCellScale = (_chunkUvCellScale > 0f ? _chunkUvCellScale : _cellScale) /
                 _chunkTextureSizeMultiplier;
-            float width = uvCellScale / _textureScale;
             float lodUvScale = uvCellScale / _cellScale;
+            float startUv = horizontalStart * uvCellScale / _textureScale;
+            float endUv = horizontalEnd * uvCellScale / _textureScale;
             float bottomUv = (bottom - _bottomHeight) * lodUvScale / _textureScale;
             float topUv = (top - _bottomHeight) * lodUvScale / _textureScale;
 
-            _uvs.Add(new Vector2(0f, bottomUv));
-            _uvs.Add(new Vector2(0f, topUv));
-            _uvs.Add(new Vector2(width, topUv));
-            _uvs.Add(new Vector2(width, bottomUv));
+            _uvs.Add(new Vector2(startUv, bottomUv));
+            _uvs.Add(new Vector2(startUv, topUv));
+            _uvs.Add(new Vector2(endUv, topUv));
+            _uvs.Add(new Vector2(endUv, bottomUv));
         }
 
         private void AddTriangles(int start)
@@ -407,6 +426,7 @@ namespace TerrainGeneration
             _vertices.Clear();
             _normals.Clear();
             _uvs.Clear();
+            _surfaceUvs.Clear();
             _triangles.Clear();
             _faces.Clear();
         }

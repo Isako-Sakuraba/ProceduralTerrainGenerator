@@ -618,27 +618,31 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: cd5bd321eee980244a9de1bcfef3ff1a, type: 2}
   _waterMaterial: {fileID: 2100000, guid: a66449047e7aac3428096be9708206dc, type: 2}
   _target: {fileID: 1147836754}
-  _chunkSize: 64
+  _chunkSize: 128
   _loadingDistance: 512
-  _generationsPerFrame: 1
-  _waterResolution: 16
+  _generationsPerFrame: 2
   _lodUpdateDistance: 1
   _lodHysteresis: 4
   _lodLevels:
-  - CellsPerEdge: 64
+  - CellsPerEdge: 128
+    WaterResolution: 16
     CellTextureSizeMultiplier: 1
     MaximumDistance: 256
-  - CellsPerEdge: 32
+  - CellsPerEdge: 64
+    WaterResolution: 8
     CellTextureSizeMultiplier: 1
     MaximumDistance: 512
-  - CellsPerEdge: 16
-    CellTextureSizeMultiplier: 1.6
+  - CellsPerEdge: 32
+    WaterResolution: 4
+    CellTextureSizeMultiplier: 1.2
     MaximumDistance: 1024
-  - CellsPerEdge: 8
-    CellTextureSizeMultiplier: 2
+  - CellsPerEdge: 16
+    WaterResolution: 2
+    CellTextureSizeMultiplier: 1.6
     MaximumDistance: 4096
-  - CellsPerEdge: 4
-    CellTextureSizeMultiplier: 2.4
+  - CellsPerEdge: 8
+    WaterResolution: 1
+    CellTextureSizeMultiplier: 2
     MaximumDistance: 3.402823e+38
 --- !u!1 &1440220462
 GameObject:
