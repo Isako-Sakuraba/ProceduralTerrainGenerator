@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58cb17427360139498a819fe8d454114, type: 3}
-  m_Name: DefaultSurface
+  m_Name: OverworldSurface
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SurfaceDefinition
   <Biomes>k__BackingField:
   - {fileID: 11400000, guid: ea5982c01a7f1624b8b9731a71b431c5, type: 2}

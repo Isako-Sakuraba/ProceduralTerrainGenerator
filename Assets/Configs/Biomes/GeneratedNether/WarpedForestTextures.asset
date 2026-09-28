@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd831eeff4f9240bdc1fd18f032392, type: 3}
+  m_Name: WarpedForestTextures
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
+  <DeepOcean>k__BackingField: {fileID: 2800000, guid: 53b4c33570aeeca49a43d2ae4094ccc5, type: 3}
+  <ShallowWater>k__BackingField: {fileID: 2800000, guid: 3966e2f6364adbb46b32550d2972ab9f, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: b316813070e01c643b039fbc419f63e9, type: 3}
+  <Lowland>k__BackingField: {fileID: 2800000, guid: 51eb4c3f88ecf564b8d87cb1958f4411, type: 3}
+  <Highland>k__BackingField: {fileID: 2800000, guid: 51eb4c3f88ecf564b8d87cb1958f4411, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: 63a86d2653e9f824d9499dff8e004e30, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: e37904ed5f460da4ab6d90d0701bbe19, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: 7758a130602559f429ffdf42cdbfde33, type: 3}

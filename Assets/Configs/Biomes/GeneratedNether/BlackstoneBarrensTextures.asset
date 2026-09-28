@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd831eeff4f9240bdc1fd18f032392, type: 3}
+  m_Name: BlackstoneBarrensTextures
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
+  <DeepOcean>k__BackingField: {fileID: 2800000, guid: 53b4c33570aeeca49a43d2ae4094ccc5, type: 3}
+  <ShallowWater>k__BackingField: {fileID: 2800000, guid: 3966e2f6364adbb46b32550d2972ab9f, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: be9eeef366f131942a40de964ee63f38, type: 3}
+  <Lowland>k__BackingField: {fileID: 2800000, guid: 94b6f7f7854af5c459f57a4ed77cdec3, type: 3}
+  <Highland>k__BackingField: {fileID: 2800000, guid: 8587c8b709d64544c813d021a2e30c18, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: 4bd9a436d2e38a344853ff62017cec77, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: c39d593221d4b1d408e16cacbeee0c75, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: b3b3aa53fda50ff4f836b8b83d756f7b, type: 3}

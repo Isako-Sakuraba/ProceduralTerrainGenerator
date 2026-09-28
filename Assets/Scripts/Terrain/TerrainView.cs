@@ -7,8 +7,6 @@ namespace TerrainGeneration
     [ExecuteAlways]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(TerrainMeshGenerator))]
-    [RequireComponent(typeof(TerrainSurfaceGenerator))]
     public sealed class TerrainView : MonoBehaviour
     {
         [Header("References")]

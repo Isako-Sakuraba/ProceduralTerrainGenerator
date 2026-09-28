@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cb17427360139498a819fe8d454114, type: 3}
+  m_Name: NetherSurface
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.SurfaceDefinition
+  <Biomes>k__BackingField:
+  - {fileID: 11400000, guid: 28d402b319f9cab4b8a1b91bb0fd37bb, type: 2}
+  - {fileID: 11400000, guid: 3787f92e71654324490b4c50aae4e538, type: 2}
+  - {fileID: 11400000, guid: 35e83a74fccba9440a499ceb8ea197c1, type: 2}
+  - {fileID: 11400000, guid: ccd6444436ae1d04c8ab31a679126420, type: 2}
+  - {fileID: 11400000, guid: 0a9d45f0f134faa49a21e777cd10bcde, type: 2}
+  - {fileID: 11400000, guid: f2652c1fd175dc941ac4c0b0626b3f2c, type: 2}
+  - {fileID: 11400000, guid: 8c3150d7036237e42bb4caabc8e70220, type: 2}
+  <ElevationSettings>k__BackingField:
+    _points:
+    - _type: 0
+      _elevation: 0
+    - _type: 1
+      _elevation: 0.090183556
+    - _type: 2
+      _elevation: 0.39984035
+    - _type: 3
+      _elevation: 0.4142059
+    - _type: 4
+      _elevation: 0.4796489
+    - _type: 5
+      _elevation: 0.49241823
+    - _type: 6
+      _elevation: 0.82
+    - _type: 7
+      _elevation: 0.93

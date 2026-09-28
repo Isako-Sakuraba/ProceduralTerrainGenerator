@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74e3b861e3de1d408b3bb4cfb44b52f, type: 3}
+  m_Name: ShowcaseDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.TerrainDefinition
+  <Size>k__BackingField: {x: 512, y: 512}
+  <Scale>k__BackingField: {x: 0.8, y: 0.8}
+  <Offset>k__BackingField: {x: 0, y: 0}
+  <TemperatureNoiseMap>k__BackingField: {fileID: 11400000, guid: a5bc2f464c053474c91b432c2fb6e3ae, type: 2}
+  <HumidityNoiseMap>k__BackingField: {fileID: 11400000, guid: 546b42240d971e44ebae7e9cd9877fd2, type: 2}
+  <ElevationNoiseMap>k__BackingField: {fileID: 11400000, guid: bbed3257feea9e6418a679d0898dc52d, type: 2}
+  <TemperatureShape>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <HumidityShape>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <ElevationShape>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.056886636
+      outSlope: 0.056886636
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.12391248
+      value: 0.0070489645
+      inSlope: 0.64552665
+      outSlope: 0.64552665
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.265161
+      value: 0.18137318
+      inSlope: 1.2656798
+      outSlope: 1.2656798
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.38794374
+      value: 0.3406461
+      inSlope: 0.6388507
+      outSlope: 0.6388507
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.48919255
+      value: 0.33867258
+      inSlope: -0.94373477
+      outSlope: -0.94373477
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.57132256
+      value: 0.18525553
+      inSlope: -0.5212183
+      outSlope: -0.5212183
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8732658
+      value: 0.43452215
+      inSlope: 2.6437306
+      outSlope: 2.6437306
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 4.46192
+      outSlope: 4.46192
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

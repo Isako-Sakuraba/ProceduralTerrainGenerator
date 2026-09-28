@@ -18,15 +18,13 @@ MonoBehaviour:
   <Layers>k__BackingField:
   - <Active>k__BackingField: 1
     <NoiseType>k__BackingField: 0
-    <Scale>k__BackingField: {x: 0, y: 0}
-    <Offset>k__BackingField: {x: 0, y: 0}
+    <NoiseMultiplier>k__BackingField: 1
+    <Scale>k__BackingField: {x: 0.8, y: 0.8}
+    <Offset>k__BackingField: {x: 200, y: 400}
   - <Active>k__BackingField: 1
     <NoiseType>k__BackingField: 3
-    <Scale>k__BackingField: {x: 0, y: 0}
-    <Offset>k__BackingField: {x: 0, y: 1.73}
-  - <Active>k__BackingField: 1
-    <NoiseType>k__BackingField: 5
-    <Scale>k__BackingField: {x: 0, y: 0}
-    <Offset>k__BackingField: {x: 2.67, y: 0}
-  <Lacunarity>k__BackingField: 1
-  <AmplitudeMultiplier>k__BackingField: 1
+    <NoiseMultiplier>k__BackingField: 0.8
+    <Scale>k__BackingField: {x: 1, y: 1}
+    <Offset>k__BackingField: {x: -500, y: 100}
+  <Lacunarity>k__BackingField: 2
+  <AmplitudeMultiplier>k__BackingField: 0.6

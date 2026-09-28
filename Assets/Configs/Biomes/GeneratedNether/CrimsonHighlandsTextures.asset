@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fd831eeff4f9240bdc1fd18f032392, type: 3}
+  m_Name: CrimsonHighlandsTextures
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGeneration.BiomeTextureDefinition
+  <DeepOcean>k__BackingField: {fileID: 2800000, guid: 53b4c33570aeeca49a43d2ae4094ccc5, type: 3}
+  <ShallowWater>k__BackingField: {fileID: 2800000, guid: 3966e2f6364adbb46b32550d2972ab9f, type: 3}
+  <Shore>k__BackingField: {fileID: 2800000, guid: d2b2321e577f09a4aa5c9e34e5a67af9, type: 3}
+  <Lowland>k__BackingField: {fileID: 2800000, guid: d2b2321e577f09a4aa5c9e34e5a67af9, type: 3}
+  <Highland>k__BackingField: {fileID: 2800000, guid: 4e3d7836499761642b5798fc9174e1f8, type: 3}
+  <MountainBase>k__BackingField: {fileID: 2800000, guid: c5bbae7354b79ca41b552291730006e7, type: 3}
+  <Mountain>k__BackingField: {fileID: 2800000, guid: fe83f1d63a185ab428799fc4d5462810, type: 3}
+  <MountainPeak>k__BackingField: {fileID: 2800000, guid: fb7c5836cd34d254ea3920410676f379, type: 3}
